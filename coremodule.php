@@ -75,7 +75,7 @@ class CoreModule extends \XDaRk\Core {
 	 * @since TODO Enter Product ${VERSION}
 	 */
 	protected function xdRegisterNameSpaces() {
-
+		$this->loader->addNamespace('\Test', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test');
 	}
 
 	/**
@@ -94,7 +94,7 @@ class CoreModule extends \XDaRk\Core {
 	 * @since TODO Enter Product ${VERSION}
 	 */
 	public function xdInstall() {
-		return true;
+		\Test\Hooks::registerHooks($this, \Test\Hooks::getInstance());
 	}
 
 	/**
@@ -107,3 +107,4 @@ class CoreModule extends \XDaRk\Core {
 		return true;
 	}
 }
+

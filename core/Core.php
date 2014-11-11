@@ -67,7 +67,6 @@ class Core extends \Module{
 	 *
 	 */
 	public function __construct() {
-		$this->bootstrap = true;
 		parent::__construct();
 
 		$this->displayName = $this->l( $this->displayName );
@@ -76,6 +75,7 @@ class Core extends \Module{
 
 		$this->loader = new XDAutoLoader();
 		$this->loader->register();
+
 		$this->xdRegisterNameSpaces();
 	}
 
@@ -116,11 +116,7 @@ class Core extends \Module{
 	 * @since ${VERSION}
 	 */
 	public function install() {
-		if ( parent::install() == false ) {
-			return false;
-		}
-
-		return $this->xdInstall();
+		return parent::install() && Hooks::registerHooks($this, Hooks::getInstance()) && $this->xdInstall();
 	}
 
 	/**

@@ -15,7 +15,7 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 	exit;
 }
 
-class Hooks {
+class Hooks extends Singleton{
 	public static $displayHooks = array(
 		'displayFooter'
 	);
@@ -53,11 +53,19 @@ class Hooks {
 		'actionWatermark',
 	);
 
-	public static function registerHooks( \Module $module ) {
-		$hooks = array_diff( (array) get_class_methods( __CLASS__ ), array( __FUNCTION__ ) );
-
+	public static function registerHooks( \Module $module, Hooks $class ) {
+		$hooks = (array) get_class_methods( get_class($class) );
+		$result = true;
 		foreach ( $hooks as $hook ) {
-			$module->registerHook( ucfirst( ltrim( $hook, 'hook' ) ) );
+			if(!self::isHookFunction($hook)) continue;
+
+			$result &= (bool)$module->registerHook( ucfirst( ltrim( $hook, 'hook' ) ) );
 		}
+
+		return $result;
+	}
+
+	public static function isHookFunction($name){
+		return preg_match('/^(hook)+/', $name);
 	}
 } 
