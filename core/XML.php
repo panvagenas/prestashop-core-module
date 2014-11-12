@@ -15,9 +15,5 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 	exit;
 }
 
-class XML{
-	public $c = 0;
-	public function get($l){
-		return 'Hello '.$l.($this->c).'!';
-	}
+class XML extends Singleton{
 } 

@@ -13,9 +13,9 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 	exit;
 }
 
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'Module.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'test' . DIRECTORY_SEPARATOR . 'Module.php';
 
-class CoreModule extends \XDaRk\Module {
+class CoreModule extends \Test\Module {
 	/**
 	 * TODO
 	 * @var string Name of this plugin
@@ -67,16 +67,7 @@ class CoreModule extends \XDaRk\Module {
 	 */
 	public $bootstrap = true;
 
-	/**
-	 * TODO
-	 * Register module specific namespaces
-	 *
-	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
-	 */
-	protected function xdRegisterNameSpaces() {
-		$this->loader->addNamespace('\Test', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test');
-	}
+
 
 	/**
 	 * @return string
@@ -84,12 +75,10 @@ class CoreModule extends \XDaRk\Module {
 	 * @since TODO Enter Product ${VERSION}
 	 */
 	protected function xdGetContent() {
-		var_dump($this->XML->get('Man'));
-		$this->XML->c = 555;
-		var_dump($this->XML->get('Man 2'));
-		var_dump($this->XML->get('Man 3'));
-		die;
-		return '';
+		return $this->Form->init($this)
+			->addTextField('Some Text', 'text')
+			->setFieldsValues(array('text'=>'Default value'))
+			->generateForm();
 	}
 }
 

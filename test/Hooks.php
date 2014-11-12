@@ -17,6 +17,6 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 
 class Hooks extends \XDaRk\Hooks{
 	public function xdRegisterHooks(\Module $module){
-		var_dump(1);die;
+		var_dump(__METHOD__);
 	}
 } 

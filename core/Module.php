@@ -19,8 +19,13 @@ require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'XDAutoLoader.php';
  * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
  * @since TODO Enter Product Version
  *
- * @property Options $options
- * @property \XDaRk\Options                               Options
+ * @property \XDaRk\Dir             Dir
+ * @property \XDaRk\File            File
+ * @property \XDaRk\Form            Form
+ * @property \XDaRk\Hooks           Hooks
+ * @property \XDaRk\Installer       Installer
+ * @property \XDaRk\Options         Options
+ * @property \XDaRk\XML             XML
  */
 class Module extends \Module {
 	/**
@@ -83,12 +88,12 @@ class Module extends \Module {
 		}
 
 		if ( in_array( $name, Core::$classes ) ) {
-			$nsName                 = __NAMESPACE__ . '\\' . $name;
+			$nsName        = __NAMESPACE__ . '\\' . $name;
 			$this->{$name} = new $nsName;
 
 			return $this->{$name};
 		} elseif ( in_array( $name, Core::$singletonClasses ) ) {
-			$nsName                 = __NAMESPACE__ . '\\' . $name;
+			$nsName        = __NAMESPACE__ . '\\' . $name;
 			$this->{$name} = $nsName::getInstance();
 
 			return $this->{$name};
@@ -168,4 +173,4 @@ class Module extends \Module {
 
 		return parent::uninstall() && Installer::getInstance()->uninstall();
 	}
-} 
+}

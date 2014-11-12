@@ -15,6 +15,6 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 	exit;
 }
 
-class File {
+class File extends Singleton {
 
 } 
