@@ -86,25 +86,5 @@ class CoreModule extends \XDaRk\Core {
 	protected function xdGetContent() {
 		return '';
 	}
-
-	/**
-	 * TODO
-	 * @return bool
-	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
-	 */
-	public function xdInstall() {
-		\Test\Hooks::registerHooks($this, \Test\Hooks::getInstance());
-	}
-
-	/**
-	 * TODO
-	 * @return bool
-	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
-	 */
-	protected function xdUninstall() {
-		return true;
-	}
 }
 

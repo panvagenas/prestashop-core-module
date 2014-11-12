@@ -1,7 +1,7 @@
 <?php
 /**
  * Project: coremodule
- * File: Defines.php
+ * File: Constants.php
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
  * Date: 11/11/2014
  * Time: 8:43 μμ
@@ -16,12 +16,12 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 }
 
 /**
- * Class Defines. XDaRk Core var defines
+ * Class Constants. XDaRk Core constants
  * @package XDaRk
  * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
  * @since TODO Enter Product Version
  */
-abstract class Defines {
-	public static $__CORE_NS__ = 'XDaRk';
-	public static $__CORE_VERSION = 141110;
+interface Constants {
+	const  __CORE_NS__ = 'XDaRk';
+	const __CORE_VERSION__ = 141110;
 } 

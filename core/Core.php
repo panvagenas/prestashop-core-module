@@ -17,7 +17,7 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'XDAutoLoader.php';
 
-class Core extends \Module{
+class Core extends \Module implements Constants {
 	/**
 	 * @var string Name of this plugin
 	 */
@@ -116,17 +116,7 @@ class Core extends \Module{
 	 * @since ${VERSION}
 	 */
 	public function install() {
-		return parent::install() && Hooks::registerHooks($this, Hooks::getInstance()) && $this->xdInstall();
-	}
-
-	/**
-	 * @extenders Extenders should use this for custom install functionality
-	 * @return bool
-	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
-	 */
-	protected function xdInstall(){
-		return true;
+		return parent::install() && Installer::getInstance()->install();
 	}
 
 	/**
@@ -140,16 +130,6 @@ class Core extends \Module{
 			return false;
 		}
 
-		return $this->xdUninstall();
-	}
-
-	/**
-	 * @extenders Extenders should use this for custom uninstall functionality
-	 * @return bool
-	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
-	 */
-	protected function xdUninstall(){
-		return true;
+		return parent::uninstall() && Installer::getInstance()->uninstall();
 	}
 } 
