@@ -15,7 +15,7 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'Core.php';
 
-class CoreModule extends \XDaRk\Core {
+class CoreModule extends \XDaRk\Module {
 	/**
 	 * TODO
 	 * @var string Name of this plugin

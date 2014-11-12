@@ -1,23 +1,18 @@
 <?php
 /**
  * Project: coremodule
- * File: Core.php
+ * File: Module.php
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
- * Date: 11/11/2014
- * Time: 8:19 μμ
+ * Date: 12/11/2014
+ * Time: 9:55 μμ
  * Since: TODO ${VERSION}
  * Copyright: 2014 Panagiotis Vagenas
  */
 
 namespace XDaRk;
 
-if ( ! defined( '_PS_VERSION_' ) ) {
-	exit;
-}
 
-require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'XDAutoLoader.php';
-
-class Core implements Constants {
+class Module extends \Module{
 	/**
 	 * @var string Name of this plugin
 	 */
