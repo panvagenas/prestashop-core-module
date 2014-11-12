@@ -11,6 +11,7 @@
 
 namespace XDaRk;
 
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'XDAutoLoader.php';
 
 class Module extends \Module{
 	/**
@@ -57,6 +58,10 @@ class Module extends \Module{
 	 * @var XDAutoLoader
 	 */
 	protected $loader;
+	/**
+	 * @var Core
+	 */
+	public $core;
 
 	/**
 	 *
@@ -72,6 +77,8 @@ class Module extends \Module{
 		$this->loader->register();
 
 		$this->xdRegisterNameSpaces();
+
+		$this->core = Core::getInstance();
 	}
 
 	protected function xdRegisterNameSpaces(){
