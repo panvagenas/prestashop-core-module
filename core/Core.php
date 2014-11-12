@@ -16,5 +16,12 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 }
 
 class Core extends Singleton implements Constants {
+	public static $singletonClasses = array(
+		'Options'
+	);
 
+	public static $classes = array(
+		'Form',
+		'XML'
+	);
 } 

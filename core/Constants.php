@@ -24,4 +24,5 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 interface Constants {
 	const  __CORE_NS__ = 'XDaRk';
 	const __CORE_VERSION__ = 141110;
+
 } 

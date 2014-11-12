@@ -11,9 +11,18 @@
 
 namespace XDaRk;
 
-require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'XDAutoLoader.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'XDAutoLoader.php';
 
-class Module extends \Module{
+/**
+ * Class Module
+ * @package XDaRk
+ * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+ * @since TODO Enter Product Version
+ *
+ * @property Options $options
+ * @property \XDaRk\Options                               Options
+ */
+class Module extends \Module {
 	/**
 	 * @var string Name of this plugin
 	 */
@@ -63,14 +72,39 @@ class Module extends \Module{
 	 */
 	public $core;
 
+	public function __call( $name, $args ) {
+		var_dump( __METHOD__, $name, $args );
+		die;
+	}
+
+	public function __get( $name ) {
+		if ( property_exists( $this, $name ) ) {
+			return $this->{$name};
+		}
+
+		if ( in_array( $name, Core::$classes ) ) {
+			$nsName                 = __NAMESPACE__ . '\\' . $name;
+			$this->{$name} = new $nsName;
+
+			return $this->{$name};
+		} elseif ( in_array( $name, Core::$singletonClasses ) ) {
+			$nsName                 = __NAMESPACE__ . '\\' . $name;
+			$this->{$name} = $nsName::getInstance();
+
+			return $this->{$name};
+		}
+
+		return null;
+	}
+
 	/**
 	 *
 	 */
 	public function __construct() {
 		parent::__construct();
 
-		$this->displayName = $this->l( $this->displayName );
-		$this->description = $this->l( $this->description );
+		$this->displayName      = $this->l( $this->displayName );
+		$this->description      = $this->l( $this->description );
 		$this->confirmUninstall = $this->l( 'Are you sure you want to uninstall?' );
 
 		$this->loader = new XDAutoLoader();
@@ -81,7 +115,7 @@ class Module extends \Module{
 		$this->core = Core::getInstance();
 	}
 
-	protected function xdRegisterNameSpaces(){
+	protected function xdRegisterNameSpaces() {
 
 	}
 
@@ -128,7 +162,7 @@ class Module extends \Module{
 	 * @since ${VERSION}
 	 */
 	public function uninstall() {
-		if ( ! parent::uninstall()) {
+		if ( ! parent::uninstall() ) {
 			return false;
 		}
 

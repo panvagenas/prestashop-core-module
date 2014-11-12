@@ -84,6 +84,11 @@ class CoreModule extends \XDaRk\Module {
 	 * @since TODO Enter Product ${VERSION}
 	 */
 	protected function xdGetContent() {
+		var_dump($this->XML->get('Man'));
+		$this->XML->c = 555;
+		var_dump($this->XML->get('Man 2'));
+		var_dump($this->XML->get('Man 3'));
+		die;
 		return '';
 	}
 }
