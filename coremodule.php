@@ -75,7 +75,6 @@ class CoreModule extends \Test\Module {
 	 * @since TODO Enter Product ${VERSION}
 	 */
 	protected function xdGetContent() {
-//		var_dump(parent::parse_classname(parent));die;
 		return $this->Form->init($this)
 			->addTextField('Some Text', 'text')
 			->setFieldsValues(array('text'=>'Default value'))

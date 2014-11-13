@@ -19,7 +19,7 @@ class Module extends \XDaRk\Module{
 
 }
 
-$GLOBALS['coremoduletest'] = array(
+$GLOBALS['coremodule'] = array(
 	'root_ns' => 'Test',
 	'var_ns' => 'tst',
 	'dir' => dirname(dirname(__FILE__))

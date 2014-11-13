@@ -28,4 +28,12 @@ class Core extends Singleton implements Constants {
 	public static $classes = array(
 		'Form'
 	);
+
+	public static $instanceClasses = array();
+
+
+
+	public static $__REGEX_MATCH_ALL__ = '//';
+	public static  $__REGEX_MATCH_PHP_FILES = '/^.+\.php$/i';
+	public static $__REGEX_HOOK_FUNCTION = '/^(hook)+.+$/';
 } 

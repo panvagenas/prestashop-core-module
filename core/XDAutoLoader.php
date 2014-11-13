@@ -76,9 +76,6 @@ class XDAutoLoader
 	public function register()
 	{
 		spl_autoload_register(array($this, 'loadClass'));
-
-		// Register core namespace
-		$this->addNamespace('\XDaRk', dirname(__FILE__));
 	}
 
 	/**

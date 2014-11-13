@@ -77,35 +77,64 @@ class Module extends \Module {
 	 */
 	public $core;
 
-//	public function __call( $name, $args ) {
-//		var_dump( __METHOD__, $name, $args );
-//		die;
-//	}
+	public $instanceNamespace;
+	public $instanceBaseDir;
+	public $instanceRootNSDir;
 
-	function parse_classname ($name)
-	{
-		return array_slice(explode('\\', $name), 0, -1);
+	public function __call($name, $args){
+		// hook functions to Hook class
+		if(Hooks::isHookFunction($name)){
+			return $this->Hooks->{$name}($args);
+		}
+	}
+	public function __isset($name){
+		// hook functions to Hook class
+		if(Hooks::isHookFunction($name)){
+			return true;
+		}
+		return false;
 	}
 
 	public function __get( $name ) {
-//		if($this->parse_classname(get_class($this)) == 'Test') die;
 		if ( property_exists( $this, $name ) ) {
 			return $this->{$name};
 		}
 
+		$nsName = ( in_array( $name, Core::$instanceClasses ) ? $this->instanceNamespace : __NAMESPACE__ ) . '\\' . $name;
+
 		if ( in_array( $name, Core::$classes ) ) {
-			$nsName        = __NAMESPACE__ . '\\' . $name;
 			$this->{$name} = new $nsName;
 
 			return $this->{$name};
 		} elseif ( in_array( $name, Core::$singletonClasses ) ) {
-			$nsName        = __NAMESPACE__ . '\\' . $name;
 			$this->{$name} = $nsName::getInstance();
 
 			return $this->{$name};
 		}
 
 		return null;
+	}
+
+	public function initialize() {
+		$this->instanceNamespace = $GLOBALS[ $this->name ]['root_ns'];
+		$this->instanceBaseDir   = $GLOBALS[ $this->name ]['dir'];
+		$this->instanceRootNSDir = $GLOBALS[ $this->name ]['dir'] . DIRECTORY_SEPARATOR . strtolower( $this->instanceNamespace );
+
+		$this->loader = new XDAutoLoader();
+		$this->loader->register();
+
+		// Register core namespace
+		$this->loader->addNamespace( '\XDaRk', dirname( __FILE__ ) );
+		// Register instance namespace
+		$this->loader->addNamespace( '\\' . $this->instanceNamespace, $this->instanceRootNSDir );
+
+		$this->core            = Core::getInstance();
+		Core::$instanceClasses = $this->File->phpClassesInDir( $this->instanceRootNSDir );
+
+		// Extenders
+		$this->xdRegisterNameSpaces();
+
+		Hooks::registerHooks($this, $this->Hooks);
 	}
 
 	/**
@@ -117,13 +146,7 @@ class Module extends \Module {
 		$this->displayName      = $this->l( $this->displayName );
 		$this->description      = $this->l( $this->description );
 		$this->confirmUninstall = $this->l( 'Are you sure you want to uninstall?' );
-
-		$this->loader = new XDAutoLoader();
-		$this->loader->register();
-
-		$this->xdRegisterNameSpaces();
-
-		$this->core = Core::getInstance();
+		$this->initialize();
 	}
 
 	protected function xdRegisterNameSpaces() {

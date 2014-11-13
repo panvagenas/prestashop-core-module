@@ -17,6 +17,10 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 
 class Hooks extends \XDaRk\Hooks{
 	public function xdRegisterHooks(\Module $module){
-		var_dump(__METHOD__);
+		var_dump(__METHOD__);die;
+	}
+
+	public function hookDisplayBackOfficeHeader($params){
+		var_dump(__METHOD__, $params);die;
 	}
 } 

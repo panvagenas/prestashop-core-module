@@ -16,19 +16,38 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 }
 
 class Hooks extends Singleton{
-	public static function registerHooks( \Module $module, Hooks $class ) {
+	/**
+	 * Hooks are registered dynamically so no need to do this in install time. TODO is this efficient?
+	 *
+	 * @param \Module $module
+	 * @param Hooks $class
+	 *
+	 * @return bool
+	 * @throws \PrestaShopException
+	 * @static * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+	 * @since TODO Enter Product ${VERSION}
+	 */
+	public static function registerHooks( \Module &$module, Hooks &$class ) {
 		$hooks = (array) get_class_methods( get_class($class) );
+//		self::removeAllHooksFromModule($module);
 		$result = true;
 		foreach ( $hooks as $hook ) {
-			if(!self::isHookFunction($hook)) continue;
+			$hookName = lcfirst( ltrim( $hook, 'hook' ) );
+			if(!self::isHookFunction($hook) || $module->isRegisteredInHook($hookName)) continue;
 
-			$result &= (bool)$module->registerHook( ucfirst( ltrim( $hook, 'hook' ) ) );
+			$result &= (bool)$module->registerHook( $hookName );
 		}
 
 		return $result;
 	}
 
 	public static function isHookFunction($name){
-		return preg_match('/^(hook)+/', $name);
+		return preg_match(Core::$__REGEX_HOOK_FUNCTION, $name);
+	}
+
+	public static function removeAllHooksFromModule(\Module &$module){
+		foreach ( \Hook::getHooks() as $k => $hook ) {
+			$module->unregisterHook((int)$hook['id_hook']);
+		}
 	}
 } 
