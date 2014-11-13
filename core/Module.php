@@ -77,12 +77,18 @@ class Module extends \Module {
 	 */
 	public $core;
 
-	public function __call( $name, $args ) {
-		var_dump( __METHOD__, $name, $args );
-		die;
+//	public function __call( $name, $args ) {
+//		var_dump( __METHOD__, $name, $args );
+//		die;
+//	}
+
+	function parse_classname ($name)
+	{
+		return array_slice(explode('\\', $name), 0, -1);
 	}
 
 	public function __get( $name ) {
+//		if($this->parse_classname(get_class($this)) == 'Test') die;
 		if ( property_exists( $this, $name ) ) {
 			return $this->{$name};
 		}
@@ -121,7 +127,7 @@ class Module extends \Module {
 	}
 
 	protected function xdRegisterNameSpaces() {
-
+		return true;
 	}
 
 	/**
@@ -157,7 +163,7 @@ class Module extends \Module {
 	 * @since ${VERSION}
 	 */
 	public function install() {
-		return parent::install() && Installer::getInstance()->install();
+		return parent::install() && $this->Installer->install();
 	}
 
 	/**
@@ -167,10 +173,6 @@ class Module extends \Module {
 	 * @since ${VERSION}
 	 */
 	public function uninstall() {
-		if ( ! parent::uninstall() ) {
-			return false;
-		}
-
-		return parent::uninstall() && Installer::getInstance()->uninstall();
+		return parent::uninstall() && $this->Installer->uninstall();
 	}
 }

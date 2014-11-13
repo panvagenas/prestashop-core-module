@@ -25,7 +25,7 @@ class CoreModule extends \Test\Module {
 	 * TODO
 	 * @var string Description
 	 */
-	public $description = 'Core Module For PrestaShop';
+	public $description = 'Core Module Test For PrestaShop';
 	/**
 	 * TODO
 	 * @var string
@@ -60,7 +60,7 @@ class CoreModule extends \Test\Module {
 	 * TODO
 	 * @var string
 	 */
-	public $displayName = 'XDaRk Core Module';
+	public $displayName = 'XDaRk Core Module Test';
 	/**
 	 * TODO
 	 * @var bool
@@ -75,6 +75,7 @@ class CoreModule extends \Test\Module {
 	 * @since TODO Enter Product ${VERSION}
 	 */
 	protected function xdGetContent() {
+//		var_dump(parent::parse_classname(parent));die;
 		return $this->Form->init($this)
 			->addTextField('Some Text', 'text')
 			->setFieldsValues(array('text'=>'Default value'))

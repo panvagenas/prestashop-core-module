@@ -17,4 +17,10 @@ require_once dirname(dirname( __FILE__ )) . DIRECTORY_SEPARATOR . 'core' . DIREC
 
 class Module extends \XDaRk\Module{
 
-} 
+}
+
+$GLOBALS['coremoduletest'] = array(
+	'root_ns' => 'Test',
+	'var_ns' => 'tst',
+	'dir' => dirname(dirname(__FILE__))
+);
