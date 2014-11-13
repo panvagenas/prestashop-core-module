@@ -16,11 +16,25 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 }
 
 class File extends Singleton {
-
+	/**
+	 * @param $dir
+	 *
+	 * @return array
+	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+	 * @since TODO Enter Product ${VERSION}
+	 */
 	public function filesInDir($dir){
 		return $this->filesInDirRegex($dir, Core::$__REGEX_MATCH_ALL__);
 	}
 
+	/**
+	 * @param $dir
+	 * @param $regex
+	 *
+	 * @return array
+	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+	 * @since TODO Enter Product ${VERSION}
+	 */
 	public function filesInDirRegex($dir, $regex){
 		$ar = array();
 		if (is_dir($dir)) {
@@ -34,10 +48,24 @@ class File extends Singleton {
 		return $ar;
 	}
 
+	/**
+	 * @param $dir
+	 *
+	 * @return array
+	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+	 * @since TODO Enter Product ${VERSION}
+	 */
 	public function phpFilesInDir($dir){
 		return $this->filesInDirRegex($dir, Core::$__REGEX_MATCH_PHP_FILES);
 	}
 
+	/**
+	 * @param $dir
+	 *
+	 * @return array
+	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+	 * @since TODO Enter Product ${VERSION}
+	 */
 	public function phpClassesInDir($dir){
 		$files = $this->phpFilesInDir($dir);
 		foreach ( $files as $path => $filename ) {

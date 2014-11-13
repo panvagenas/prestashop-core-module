@@ -11,6 +11,10 @@
 
 namespace XDaRk;
 
+if ( ! defined( '_PS_VERSION_' ) ) {
+	exit;
+}
+
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'XDAutoLoader.php';
 
 /**
@@ -27,7 +31,7 @@ require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'XDAutoLoader.php';
  * @property \XDaRk\Options         Options
  * @property \XDaRk\XML             XML
  */
-class Module extends \Module {
+abstract class Module extends \Module {
 	/**
 	 * @var string Name of this plugin
 	 */
