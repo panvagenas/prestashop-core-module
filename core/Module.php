@@ -84,6 +84,8 @@ class Module extends \Module {
 	public function __call($name, $args){
 		// hook functions to Hook class
 		if(Hooks::isHookFunction($name)){
+			$name = 'hook'.ucfirst( ltrim( $name, 'hook' ) );
+			if(!method_exists($this->Hooks, $name)) return;
 			return $this->Hooks->{$name}($args);
 		}
 	}
@@ -104,11 +106,9 @@ class Module extends \Module {
 
 		if ( in_array( $name, Core::$classes ) ) {
 			$this->{$name} = new $nsName;
-
 			return $this->{$name};
 		} elseif ( in_array( $name, Core::$singletonClasses ) ) {
 			$this->{$name} = $nsName::getInstance();
-
 			return $this->{$name};
 		}
 
@@ -129,6 +129,9 @@ class Module extends \Module {
 		$this->loader->addNamespace( '\\' . $this->instanceNamespace, $this->instanceRootNSDir );
 
 		$this->core            = Core::getInstance();
+		Core::$instanceNamespace = $this->instanceNamespace;
+		Core::$instanceBaseDir = $this->instanceBaseDir;
+		Core::$instanceRootNSDir = $this->instanceRootNSDir;
 		Core::$instanceClasses = $this->File->phpClassesInDir( $this->instanceRootNSDir );
 
 		// Extenders

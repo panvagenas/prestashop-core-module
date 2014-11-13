@@ -31,6 +31,9 @@ class Core extends Singleton implements Constants {
 
 	public static $instanceClasses = array();
 
+	public static $instanceNamespace;
+	public static $instanceBaseDir;
+	public static $instanceRootNSDir;
 
 
 	public static $__REGEX_MATCH_ALL__ = '//';

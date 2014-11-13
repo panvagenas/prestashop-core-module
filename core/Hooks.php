@@ -29,14 +29,28 @@ class Hooks extends Singleton{
 	 */
 	public static function registerHooks( \Module &$module, Hooks &$class ) {
 		$hooks = (array) get_class_methods( get_class($class) );
-//		self::removeAllHooksFromModule($module);
+
+		foreach ( $module->Options->getValue( 'hooks' ) as $hook ) {
+			if(!in_array($hook, $hooks)){
+				$module->unregisterHook($hook);
+			}
+		}
+
 		$result = true;
-		foreach ( $hooks as $hook ) {
+		foreach ( $hooks as $key => $hook ) {
 			$hookName = lcfirst( ltrim( $hook, 'hook' ) );
-			if(!self::isHookFunction($hook) || $module->isRegisteredInHook($hookName)) continue;
+			if(!self::isHookFunction($hook)) {
+				unset ($hooks[$key]);
+				continue;
+			}
+			if($module->isRegisteredInHook($hookName)){
+				continue;
+			}
 
 			$result &= (bool)$module->registerHook( $hookName );
 		}
+
+		$module->Options->saveOptions( array('hooks' => $hooks) );
 
 		return $result;
 	}

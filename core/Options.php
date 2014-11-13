@@ -25,7 +25,9 @@ class Options extends Singleton {
 	/**
 	 * @var array
 	 */
-	protected $defaults = array();
+	protected $defaults = array(
+		'hooks' => array()
+	);
 	/**
 	 * @var array
 	 */
@@ -35,7 +37,7 @@ class Options extends Singleton {
 	 *
 	 */
 	protected function __construct() {
-		$this->optionsArrayName = __NAMESPACE__ . '-Options';
+		$this->optionsArrayName = Core::$instanceNamespace . '-Options';
 		$this->init();
 	}
 
