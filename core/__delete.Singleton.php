@@ -43,10 +43,9 @@ abstract class Singleton {
 	 *
 	 * @return $this The *Singleton* instance.
 	 */
-	public static function getInstance()
-	{
+	public static function getInstance() {
 		static $instance = null;
-		if (null === $instance ) {
+		if (null === $instance) {
 			$instance = new static();
 		}
 
@@ -57,8 +56,7 @@ abstract class Singleton {
 	 * Protected constructor to prevent creating a new instance of the
 	 * *Singleton* via the `new` operator from outside of this class.
 	 */
-	protected function __construct()
-	{
+	protected function __construct() {
 	}
 
 	/**
@@ -67,8 +65,7 @@ abstract class Singleton {
 	 *
 	 * @return void
 	 */
-	private function __clone()
-	{
+	private function __clone() {
 	}
 
 	/**
@@ -77,7 +74,6 @@ abstract class Singleton {
 	 *
 	 * @return void
 	 */
-	private function __wakeup()
-	{
+	private function __wakeup() {
 	}
 }

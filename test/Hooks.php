@@ -11,20 +11,20 @@
 
 namespace Test;
 
-if ( ! defined( '_PS_VERSION_' ) ) {
+if (!defined('_PS_VERSION_')) {
 	exit;
 }
 
-class Hooks extends \XDaRk\Hooks{
-	public function xdRegisterHooks(\Module $module){
+class Hooks extends \XDaRk\Hooks {
+	public function xdRegisterHooks(\Module $module) {
 
 	}
 
-	public function hookDisplayHeader($params){
+	public function hookDisplayHeader($params) {
 
 	}
 
-	public function hookDisplayRightColumn(){
+	public function hookDisplayRightColumn() {
 
 	}
 } 

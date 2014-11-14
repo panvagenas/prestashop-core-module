@@ -11,11 +11,12 @@
 
 namespace XDaRk;
 
-if ( ! defined( '_PS_VERSION_' ) ) {
+if (!defined('_PS_VERSION_')) {
 	exit;
 }
 
-class Core implements Constants {
+class Core implements Constants
+{
 	public static $singletonClasses = array();
 
 	public static $classes = array(
@@ -41,22 +42,24 @@ class Core implements Constants {
 
 	protected $moduleInstance;
 
-	public function m(){
-		var_dump(__METHOD__ . ' <- ' . get_class($this));
+	public function m()
+	{
+		var_dump(__METHOD__.' <- '.get_class($this));
 	}
 
-	public function __get( $name ) {
-		if(property_exists($this, $name)){
+	public function __get($name)
+	{
+		if (property_exists($this, $name)) {
 			return $this->{$name};
 		}
 
-		$nsName = ( in_array( $name, Core::$instanceClasses ) ? Core::$instanceNamespace : __NAMESPACE__ ) . '\\' . $name;
+		$nsName = (in_array($name, Core::$instanceClasses) ? Core::$instanceNamespace : __NAMESPACE__).'\\'.$name;
 
-		if(in_array($name, Core::$instanceClasses)){
+		if (in_array($name, Core::$instanceClasses)) {
 			return $this->{$name} = new $nsName($this->moduleInstance, $this);
-		} elseif ( in_array( $name, Core::$classes )) {
+		} elseif (in_array($name, Core::$classes)) {
 			return $this->{$name} = new $nsName($this->moduleInstance);
-		} elseif ( in_array( $name, Core::$singletonClasses ) ) {
+		} elseif (in_array($name, Core::$singletonClasses)) {
 			return $this->{$name} = $nsName::getInstance();
 		}
 
@@ -70,10 +73,11 @@ class Core implements Constants {
 	 *
 	 * @return $this The *Singleton* instance.
 	 */
-	public static function getInstance( \Module &$moduleInstance ) {
+	public static function getInstance(\Module &$moduleInstance)
+	{
 		static $instance = null;
-		if ( null === $instance ) {
-			$instance = new static( $moduleInstance );
+		if (null === $instance) {
+			$instance = new static($moduleInstance);
 		}
 
 		return $instance;
@@ -83,7 +87,8 @@ class Core implements Constants {
 	 * Protected constructor to prevent creating a new instance of the
 	 * *Singleton* via the `new` operator from outside of this class.
 	 */
-	protected function __construct( \Module &$moduleInstance ) {
+	protected function __construct(\Module &$moduleInstance)
+	{
 		$this->moduleInstance = $moduleInstance;
 	}
 
@@ -93,7 +98,8 @@ class Core implements Constants {
 	 *
 	 * @return void
 	 */
-	private function __clone() {
+	private function __clone()
+	{
 	}
 
 	/**
@@ -102,6 +108,7 @@ class Core implements Constants {
 	 *
 	 * @return void
 	 */
-	private function __wakeup() {
+	private function __wakeup()
+	{
 	}
 } 

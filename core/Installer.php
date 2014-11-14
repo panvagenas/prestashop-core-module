@@ -11,28 +11,30 @@
 
 namespace XDaRk;
 
-if ( ! defined( '_PS_VERSION_' ) ) {
+if (!defined('_PS_VERSION_')) {
 	exit;
 }
 
 class Installer extends Core {
-	public function install(){
+	public function install() {
 		$result = true;
 		$result &= $this->xdInstall();
+
 		return $result;
 	}
 
-	public function xdInstall(){
+	public function xdInstall() {
 		return true;
 	}
 
-	public function uninstall(){
+	public function uninstall() {
 		$result = true;
 		$result &= $this->xdUninstall();
+
 		return $result;
 	}
 
-	public function xdUninstall(){
+	public function xdUninstall() {
 		return true;
 	}
 } 

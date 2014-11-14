@@ -12,7 +12,7 @@
 namespace XDaRk;
 
 
-if ( ! defined( '_PS_VERSION_' ) ) {
+if (!defined('_PS_VERSION_')) {
 	exit;
 }
 
@@ -38,7 +38,7 @@ class Options extends Core {
 	 */
 	public function __construct() {
 		//parent::__construct();
-		$this->optionsArrayName = Core::$instanceNamespace . '-Options';
+		$this->optionsArrayName = Core::$instanceNamespace.'-Options';
 		$this->init();
 	}
 
@@ -49,14 +49,14 @@ class Options extends Core {
 	 * @since ${VERSION}
 	 */
 	protected function init() {
-		$this->stored = unserialize( \Configuration::get( $this->optionsArrayName ) );
+		$this->stored = unserialize(\Configuration::get($this->optionsArrayName));
 
-		if ( ! $this->stored || empty( $this->stored ) ) {
+		if (!$this->stored || empty($this->stored)) {
 			$this->stored = $this->defaults;
-			$this->saveOptions( $this->stored );
+			$this->saveOptions($this->stored);
 		}
 
-		$this->stored = array_merge( $this->defaults, $this->stored );
+		$this->stored = array_merge($this->defaults, $this->stored);
 
 		return $this;
 	}
@@ -71,15 +71,15 @@ class Options extends Core {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since ${VERSION}
 	 */
-	public function getValue( $optionName, $default = false ) {
-		if ( ! isset( $this->defaults[ $optionName ] ) ) {
-			throw new \Exception( 'No matching option' );
+	public function getValue($optionName, $default = false) {
+		if (!isset($this->defaults[ $optionName ])) {
+			throw new \Exception('No matching option');
 		}
-		if ( $default ) {
+		if ($default) {
 			return $this->defaults[ $optionName ];
 		}
 
-		return isset( $this->stored[ $optionName ] ) ? $this->stored[ $optionName ] : $this->defaults[ $optionName ];
+		return isset($this->stored[ $optionName ]) ? $this->stored[ $optionName ] : $this->defaults[ $optionName ];
 	}
 
 	/**
@@ -90,10 +90,10 @@ class Options extends Core {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since ${VERSION}
 	 */
-	public function saveOptions( $newOptions ) {
-		$this->stored = $this->validateOptions( $newOptions );
+	public function saveOptions($newOptions) {
+		$this->stored = $this->validateOptions($newOptions);
 
-		return \Configuration::updateValue( $this->optionsArrayName, serialize( $this->stored ) );
+		return \Configuration::updateValue($this->optionsArrayName, serialize($this->stored));
 	}
 
 	/**
@@ -106,7 +106,7 @@ class Options extends Core {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since ${VERSION}
 	 */
-	protected function validateOptions( Array $newOptions ) {
+	protected function validateOptions(Array $newOptions) {
 		return $newOptions;
 	}
 
@@ -118,7 +118,7 @@ class Options extends Core {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since ${VERSION}
 	 */
-	public function getOptionsArray( $defaults = false ) {
+	public function getOptionsArray($defaults = false) {
 		return $defaults ? $this->defaults : $this->stored;
 	}
 }

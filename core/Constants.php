@@ -11,9 +11,9 @@
 
 namespace XDaRk;
 
-if ( ! defined( '_PS_VERSION_' ) ) {
+if (!defined('_PS_VERSION_'))
 	exit;
-}
+
 
 /**
  * Class Constants. XDaRk Core constants
@@ -21,7 +21,8 @@ if ( ! defined( '_PS_VERSION_' ) ) {
  * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
  * @since TODO Enter Product Version
  */
-interface Constants {
+interface Constants
+{
 	const  __CORE_NS__ = 'XDaRk';
 	const __CORE_VERSION__ = 141110;
 }

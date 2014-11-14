@@ -11,7 +11,7 @@
 
 namespace XDaRk;
 
-if ( ! defined( '_PS_VERSION_' ) ) {
+if (!defined('_PS_VERSION_')) {
 	exit;
 }
 
@@ -23,7 +23,7 @@ class File extends Core {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since TODO Enter Product ${VERSION}
 	 */
-	public static function filesInDir($dir){
+	public static function filesInDir($dir) {
 		return self::filesInDirRegex($dir, Core::$__REGEX_MATCH_ALL__);
 	}
 
@@ -35,16 +35,17 @@ class File extends Core {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since TODO Enter Product ${VERSION}
 	 */
-	public static function filesInDirRegex($dir, $regex){
+	public static function filesInDirRegex($dir, $regex) {
 		$ar = array();
 		if (is_dir($dir)) {
 			$directory = new \DirectoryIterator($dir);
 			foreach ($directory as $fileInfo) {
 				if (!$fileInfo->isDot() && preg_match($regex, $fileInfo->getFilename())) {
-					$ar[$fileInfo->getRealPath()] = $fileInfo->getFilename();
+					$ar[ $fileInfo->getRealPath() ] = $fileInfo->getFilename();
 				}
 			}
 		}
+
 		return $ar;
 	}
 
@@ -55,7 +56,7 @@ class File extends Core {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since TODO Enter Product ${VERSION}
 	 */
-	public static function phpFilesInDir($dir){
+	public static function phpFilesInDir($dir) {
 		return self::filesInDirRegex($dir, Core::$__REGEX_MATCH_PHP_FILES);
 	}
 
@@ -66,11 +67,12 @@ class File extends Core {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since TODO Enter Product ${VERSION}
 	 */
-	public static function phpClassesInDir($dir){
+	public static function phpClassesInDir($dir) {
 		$files = self::phpFilesInDir($dir);
-		foreach ( $files as $path => $filename ) {
-			$files[$path] = str_replace('.php', '', $filename);
+		foreach ($files as $path => $filename) {
+			$files[ $path ] = str_replace('.php', '', $filename);
 		}
+
 		return $files;
 	}
 } 

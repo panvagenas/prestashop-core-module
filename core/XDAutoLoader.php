@@ -58,8 +58,7 @@ if (!defined('_PS_VERSION_'))
  *      <?php
  *      new \Foo\Bar\Qux\QuuxTest();
  */
-class XDAutoLoader
-{
+class XDAutoLoader {
 	/**
 	 * An associative array where the key is a namespace prefix and the value
 	 * is an array of base directories for classes in that namespace.
@@ -73,40 +72,39 @@ class XDAutoLoader
 	 *
 	 * @return void
 	 */
-	public function register()
-	{
+	public function register() {
 		spl_autoload_register(array($this, 'loadClass'));
 	}
 
 	/**
 	 * Adds a base directory for a namespace prefix.
 	 *
-	 * @param  string $prefix  The namespace prefix.
+	 * @param  string $prefix The namespace prefix.
 	 * @param  string $baseDir A base directory for class files in the
 	 *                         namespace.
-	 * @param  bool   $prepend If true, prepend the base directory to the stack
+	 * @param  bool $prepend If true, prepend the base directory to the stack
 	 *                         instead of appending it; this causes it to be searched first rather
 	 *                         than last.
+	 *
 	 * @return void
 	 */
-	public function addNamespace($prefix, $baseDir, $prepend = false)
-	{
+	public function addNamespace($prefix, $baseDir, $prepend = false) {
 		// normalize namespace prefix
-		$prefix = trim($prefix, '\\') . '\\';
+		$prefix = trim($prefix, '\\').'\\';
 
 		// normalize the base directory with a trailing separator
-		$baseDir = rtrim(rtrim($baseDir, '/'), DIRECTORY_SEPARATOR) . '/';
+		$baseDir = rtrim(rtrim($baseDir, '/'), DIRECTORY_SEPARATOR).'/';
 
 		// initialize the namespace prefix array
-		if (isset($this->prefixes[$prefix]) === false) {
-			$this->prefixes[$prefix] = array();
+		if (isset($this->prefixes[ $prefix ]) === false) {
+			$this->prefixes[ $prefix ] = array();
 		}
 
 		// retain the base directory for the namespace prefix
 		if ($prepend) {
-			array_unshift($this->prefixes[$prefix], $baseDir);
+			array_unshift($this->prefixes[ $prefix ], $baseDir);
 		} else {
-			array_push($this->prefixes[$prefix], $baseDir);
+			array_push($this->prefixes[ $prefix ], $baseDir);
 		}
 	}
 
@@ -114,11 +112,11 @@ class XDAutoLoader
 	 * Loads the class file for a given class name.
 	 *
 	 * @param  string $class The fully-qualified class name.
+	 *
 	 * @return mixed  The mapped file name on success, or boolean false on
 	 *                      failure.
 	 */
-	public function loadClass($class)
-	{
+	public function loadClass($class) {
 		// the current namespace prefix
 		$prefix = $class;
 
@@ -149,27 +147,27 @@ class XDAutoLoader
 	/**
 	 * Load the mapped file for a namespace prefix and relative class.
 	 *
-	 * @param  string $prefix        The namespace prefix.
+	 * @param  string $prefix The namespace prefix.
 	 * @param  string $relativeClass The relative class name.
+	 *
 	 * @return mixed  Boolean false if no mapped file can be loaded, or the
 	 *                              name of the mapped file that was loaded.
 	 */
-	protected function loadMappedFile($prefix, $relativeClass)
-	{
+	protected function loadMappedFile($prefix, $relativeClass) {
 		// are there any base directories for this namespace prefix?
-		if (isset($this->prefixes[$prefix]) === false) {
+		if (isset($this->prefixes[ $prefix ]) === false) {
 			return false;
 		}
 
 		// look through base directories for this namespace prefix
-		foreach ($this->prefixes[$prefix] as $baseDir) {
+		foreach ($this->prefixes[ $prefix ] as $baseDir) {
 
 			// replace the namespace prefix with the base directory,
 			// replace namespace separators with directory separators
 			// in the relative class name, append with .php
 			$file = $baseDir
-			        . str_replace('\\', '/', $relativeClass)
-			        . '.php';
+			        .str_replace('\\', '/', $relativeClass)
+			        .'.php';
 
 			// if the mapped file exists, require it
 			if ($this->requireFile($file)) {
@@ -186,10 +184,10 @@ class XDAutoLoader
 	 * If a file exists, require it from the file system.
 	 *
 	 * @param  string $file The file to require.
+	 *
 	 * @return bool   True if the file exists, false if not.
 	 */
-	protected function requireFile($file)
-	{
+	protected function requireFile($file) {
 		if (is_file($file)) {
 			require $file;
 

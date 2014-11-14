@@ -11,11 +11,11 @@
 
 namespace XDaRk;
 
-if ( ! defined( '_PS_VERSION_' ) ) {
+if (!defined('_PS_VERSION_')) {
 	exit;
 }
 
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'XDAutoLoader.php';
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'XDAutoLoader.php';
 
 /**
  * Class Module
@@ -59,7 +59,7 @@ abstract class Module extends \Module {
 	/**
 	 * @var array
 	 */
-	public $ps_versions_compliancy = array( 'min' => '1.5' );
+	public $ps_versions_compliancy = array('min' => '1.5');
 	/**
 	 * @var array
 	 */
@@ -81,30 +81,30 @@ abstract class Module extends \Module {
 	 */
 	public $core;
 
-	public function __call( $name, $args ) {
+	public function __call($name, $args) {
 		// hook functions to Hook class
-		if ( Hooks::isHookFunction( $name ) ) {
-			$name = 'hook' . ucfirst( ltrim( $name, 'hook' ) );
-			if ( ! method_exists( $this->Hooks, $name ) ) {
-				throw new \Exception( 'Hook ' . $name . ' Not Found' );
+		if (Hooks::isHookFunction($name)) {
+			$name = 'hook'.ucfirst(ltrim($name, 'hook'));
+			if (!method_exists($this->Hooks, $name)) {
+				throw new \Exception('Hook '.$name.' Not Found');
 			}
 
-			return $this->Hooks->{$name}( $args );
+			return $this->Hooks->{$name}($args);
 		}
 		// TODO Maybe we should povide some other key accesses too
-		throw new \Exception( 'Undefined Method ' . $name );
+		throw new \Exception('Undefined Method '.$name);
 	}
 
-	public function __isset( $name ) {
+	public function __isset($name) {
 		// hook functions to Hook class
-		if ( Hooks::isHookFunction( $name ) ) {
+		if (Hooks::isHookFunction($name)) {
 			return true;
 		}
 
 		return false;
 	}
 
-	public function __get( $name ) {
+	public function __get($name) {
 		return $this->core->{$name};
 	}
 
@@ -113,23 +113,23 @@ abstract class Module extends \Module {
 		$this->loader->register();
 
 		// Register core namespace
-		$this->loader->addNamespace( '\XDaRk', dirname( __FILE__ ) );
+		$this->loader->addNamespace('\XDaRk', dirname(__FILE__));
 
-		$this->core              = Core::getInstance( $this );
+		$this->core              = Core::getInstance($this);
 		Core::$instanceNamespace = $GLOBALS[ $this->name ]['root_ns'];
 		Core::$instanceBaseDir   = $GLOBALS[ $this->name ]['dir'];
-		Core::$instanceRootNSDir = $GLOBALS[ $this->name ]['dir'] . DIRECTORY_SEPARATOR . strtolower( Core::$instanceNamespace );
+		Core::$instanceRootNSDir = $GLOBALS[ $this->name ]['dir'].DIRECTORY_SEPARATOR.strtolower(Core::$instanceNamespace);
 
-		// Register instance namespace
-		$this->loader->addNamespace( '\\' . Core::$instanceNamespace, Core::$instanceRootNSDir );
+		// Register instance namespace, this is a necessary step
+		$this->loader->addNamespace('\\'.Core::$instanceNamespace, Core::$instanceRootNSDir);
 
-		Core::$instanceClasses = File::phpClassesInDir( Core::$instanceRootNSDir );
-		Core::$classes = File::phpClassesInDir( dirname(__FILE__) );
+		Core::$instanceClasses = File::phpClassesInDir(Core::$instanceRootNSDir);
+		Core::$classes         = File::phpClassesInDir(dirname(__FILE__));
 
 		// Extenders
 		$this->xdRegisterNameSpaces();
 
-		Hooks::registerHooks( $this, $this->Hooks );
+		Hooks::registerHooks($this, $this->Hooks);
 	}
 
 	/**
@@ -138,9 +138,9 @@ abstract class Module extends \Module {
 	public function __construct() {
 		parent::__construct();
 
-		$this->displayName      = $this->l( $this->displayName );
-		$this->description      = $this->l( $this->description );
-		$this->confirmUninstall = $this->l( 'Are you sure you want to uninstall?' );
+		$this->displayName      = $this->l($this->displayName);
+		$this->description      = $this->l($this->description);
+		$this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
 		$this->initialize();
 	}
 
@@ -161,7 +161,7 @@ abstract class Module extends \Module {
 
 		// TODO We should load basic content functionality here
 
-		return $output . $this->xdGetContent();
+		return $output.$this->xdGetContent();
 	}
 
 	/**

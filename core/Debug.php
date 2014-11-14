@@ -1,10 +1,10 @@
 <?php
 /**
  * Project: coremodule
- * File: CarrierModule.php
+ * File: Debug.php
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
  * Date: 14/11/2014
- * Time: 12:25 πμ
+ * Time: 8:21 μμ
  * Since: TODO ${VERSION}
  * Copyright: 2014 Panagiotis Vagenas
  */
@@ -15,8 +15,6 @@ if (!defined('_PS_VERSION_')) {
 	exit;
 }
 
-abstract class CarrierModule extends Module {
-	abstract public function getOrderShippingCost($params, $shipping_cost);
+class Debug extends Core {
 
-	abstract public function getOrderShippingCostExternal($params);
 } 
