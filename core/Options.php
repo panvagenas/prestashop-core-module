@@ -16,7 +16,7 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 	exit;
 }
 
-class Options extends Singleton {
+class Options extends Core {
 	/**
 	 * @var string
 	 */
@@ -36,7 +36,8 @@ class Options extends Singleton {
 	/**
 	 *
 	 */
-	protected function __construct() {
+	public function __construct() {
+		//parent::__construct();
 		$this->optionsArrayName = Core::$instanceNamespace . '-Options';
 		$this->init();
 	}

@@ -15,5 +15,5 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 	exit;
 }
 
-class XML extends Singleton{
+class XML extends Core{
 } 

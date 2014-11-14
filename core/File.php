@@ -15,7 +15,7 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 	exit;
 }
 
-class File extends Singleton {
+class File extends Core {
 	/**
 	 * @param $dir
 	 *
@@ -23,8 +23,8 @@ class File extends Singleton {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since TODO Enter Product ${VERSION}
 	 */
-	public function filesInDir($dir){
-		return $this->filesInDirRegex($dir, Core::$__REGEX_MATCH_ALL__);
+	public static function filesInDir($dir){
+		return self::filesInDirRegex($dir, Core::$__REGEX_MATCH_ALL__);
 	}
 
 	/**
@@ -35,7 +35,7 @@ class File extends Singleton {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since TODO Enter Product ${VERSION}
 	 */
-	public function filesInDirRegex($dir, $regex){
+	public static function filesInDirRegex($dir, $regex){
 		$ar = array();
 		if (is_dir($dir)) {
 			$directory = new \DirectoryIterator($dir);
@@ -55,8 +55,8 @@ class File extends Singleton {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since TODO Enter Product ${VERSION}
 	 */
-	public function phpFilesInDir($dir){
-		return $this->filesInDirRegex($dir, Core::$__REGEX_MATCH_PHP_FILES);
+	public static function phpFilesInDir($dir){
+		return self::filesInDirRegex($dir, Core::$__REGEX_MATCH_PHP_FILES);
 	}
 
 	/**
@@ -66,8 +66,8 @@ class File extends Singleton {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since TODO Enter Product ${VERSION}
 	 */
-	public function phpClassesInDir($dir){
-		$files = $this->phpFilesInDir($dir);
+	public static function phpClassesInDir($dir){
+		$files = self::phpFilesInDir($dir);
 		foreach ( $files as $path => $filename ) {
 			$files[$path] = str_replace('.php', '', $filename);
 		}

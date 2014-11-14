@@ -81,67 +81,55 @@ abstract class Module extends \Module {
 	 */
 	public $core;
 
-	public $instanceNamespace;
-	public $instanceBaseDir;
-	public $instanceRootNSDir;
+	public function __call( $name, $args ) {
+		// hook functions to Hook class
+		if ( Hooks::isHookFunction( $name ) ) {
+			$name = 'hook' . ucfirst( ltrim( $name, 'hook' ) );
+			if ( ! method_exists( $this->Hooks, $name ) ) {
+				throw new \Exception( 'Hook ' . $name . ' Not Found' );
+			}
 
-	public function __call($name, $args){
-		// hook functions to Hook class
-		if(Hooks::isHookFunction($name)){
-			$name = 'hook'.ucfirst( ltrim( $name, 'hook' ) );
-			if(!method_exists($this->Hooks, $name)) return;
-			return $this->Hooks->{$name}($args);
+			return $this->Hooks->{$name}( $args );
 		}
+		// TODO Maybe we should povide some other key accesses too
+		throw new \Exception( 'Undefined Method ' . $name );
 	}
-	public function __isset($name){
+
+	public function __isset( $name ) {
 		// hook functions to Hook class
-		if(Hooks::isHookFunction($name)){
+		if ( Hooks::isHookFunction( $name ) ) {
 			return true;
 		}
+
 		return false;
 	}
 
 	public function __get( $name ) {
-		if ( property_exists( $this, $name ) ) {
-			return $this->{$name};
-		}
-
-		$nsName = ( in_array( $name, Core::$instanceClasses ) ? $this->instanceNamespace : __NAMESPACE__ ) . '\\' . $name;
-
-		if ( in_array( $name, Core::$classes ) ) {
-			$this->{$name} = new $nsName;
-			return $this->{$name};
-		} elseif ( in_array( $name, Core::$singletonClasses ) ) {
-			$this->{$name} = $nsName::getInstance();
-			return $this->{$name};
-		}
-
-		return null;
+		return $this->core->{$name};
 	}
 
 	public function initialize() {
-		$this->instanceNamespace = $GLOBALS[ $this->name ]['root_ns'];
-		$this->instanceBaseDir   = $GLOBALS[ $this->name ]['dir'];
-		$this->instanceRootNSDir = $GLOBALS[ $this->name ]['dir'] . DIRECTORY_SEPARATOR . strtolower( $this->instanceNamespace );
-
 		$this->loader = new XDAutoLoader();
 		$this->loader->register();
 
 		// Register core namespace
 		$this->loader->addNamespace( '\XDaRk', dirname( __FILE__ ) );
-		// Register instance namespace
-		$this->loader->addNamespace( '\\' . $this->instanceNamespace, $this->instanceRootNSDir );
 
-		$this->core            = Core::getInstance();
-		Core::$instanceNamespace = $this->instanceNamespace;
-		Core::$instanceBaseDir = $this->instanceBaseDir;
-		Core::$instanceRootNSDir = $this->instanceRootNSDir;
-		Core::$instanceClasses = $this->File->phpClassesInDir( $this->instanceRootNSDir );
+		$this->core              = Core::getInstance( $this );
+		Core::$instanceNamespace = $GLOBALS[ $this->name ]['root_ns'];
+		Core::$instanceBaseDir   = $GLOBALS[ $this->name ]['dir'];
+		Core::$instanceRootNSDir = $GLOBALS[ $this->name ]['dir'] . DIRECTORY_SEPARATOR . strtolower( Core::$instanceNamespace );
+
+		// Register instance namespace
+		$this->loader->addNamespace( '\\' . Core::$instanceNamespace, Core::$instanceRootNSDir );
+
+		Core::$instanceClasses = File::phpClassesInDir( Core::$instanceRootNSDir );
+		Core::$classes = File::phpClassesInDir( dirname(__FILE__) );
 
 		// Extenders
 		$this->xdRegisterNameSpaces();
 
-		Hooks::registerHooks($this, $this->Hooks);
+		Hooks::registerHooks( $this, $this->Hooks );
 	}
 
 	/**

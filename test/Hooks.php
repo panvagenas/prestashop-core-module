@@ -17,11 +17,11 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 
 class Hooks extends \XDaRk\Hooks{
 	public function xdRegisterHooks(\Module $module){
-//		var_dump(__METHOD__);die;
+
 	}
 
 	public function hookDisplayHeader($params){
-		var_dump(__METHOD__, $params);die;
+
 	}
 
 	public function hookDisplayRightColumn(){

@@ -15,7 +15,7 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 	exit;
 }
 
-class Installer extends Singleton {
+class Installer extends Core {
 	public function install(){
 		$result = true;
 		$result &= $this->xdInstall();

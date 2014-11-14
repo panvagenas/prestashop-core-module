@@ -16,6 +16,26 @@ if (!defined('_PS_VERSION_'))
 	exit;
 
 abstract class Singleton {
+
+
+//	public function __get( $name ) {
+//		if ( property_exists( $this, $name ) ) {
+//			return $this->{$name};
+//		}
+//
+//		$nsName = ( in_array( $name, Core::$instanceClasses ) ? Core::$instanceNamespace : __NAMESPACE__ ) . '\\' . $name;
+//
+//		if ( in_array( $name, Core::$classes ) ) {
+//			$this->{$name} = new $nsName;
+//			return $this->{$name};
+//		} elseif ( in_array( $name, Core::$singletonClasses ) ) {
+//			$this->{$name} = $nsName::getInstance();
+//			return $this->{$name};
+//		}
+//
+//		return null;
+//	}
+
 	/**
 	 * Returns the *Singleton* instance of this class.
 	 *
@@ -26,7 +46,7 @@ abstract class Singleton {
 	public static function getInstance()
 	{
 		static $instance = null;
-		if (null === $instance) {
+		if (null === $instance ) {
 			$instance = new static();
 		}
 

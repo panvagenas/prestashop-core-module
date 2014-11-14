@@ -15,7 +15,7 @@ if ( ! defined( '_PS_VERSION_' ) ) {
 	exit;
 }
 
-class Hooks extends Singleton{
+class Hooks extends Core{
 	/**
 	 * Hooks are registered dynamically so no need to do this in install time. TODO is this efficient?
 	 *
