@@ -5,7 +5,7 @@
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
  * Date: 12/11/2014
  * Time: 9:55 μμ
- * Since: TODO ${VERSION}
+ * Since: 141110
  * Copyright: 2014 Panagiotis Vagenas
  */
 
@@ -21,7 +21,7 @@ require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'XDAutoLoader.php';
  * Class Module
  * @package XDaRk
  * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
- * @since TODO Enter Product Version
+ * @since 141110
  *
  * @property \XDaRk\Dir             Dir
  * @property \XDaRk\File            File
@@ -151,15 +151,24 @@ abstract class Module extends \Module {
 	/**
 	 * Module options page
 	 *
+	 * @doNotExtend
+	 *
 	 * @return string
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since ${VERSION}
 	 */
 	public function getContent() {
-		$output = null;
+		$output = '';
 
-		// TODO We should load basic content functionality here
+		if ( \Tools::isSubmit( 'submit' . $this->name ) ) {
+			$newOptions = $_POST;
+			if ( $this->Options->saveOptions( $newOptions ) ) {
+				$output .= $this->displayConfirmation( $this->l( 'Settings updated' ) );
+			} else {
+				$output .= $this->displayError( $this->l( 'There was an error saving options' ) );
+			}
+		}
 
 		return $output.$this->xdGetContent();
 	}
@@ -168,7 +177,7 @@ abstract class Module extends \Module {
 	 * @extenders This should be used by extenders to display form fields
 	 * @return string
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
+	 * @since 141110
 	 */
 	protected function xdGetContent() {
 		return '';

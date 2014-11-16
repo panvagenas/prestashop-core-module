@@ -5,7 +5,7 @@
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
  * Date: 11/11/2014
  * Time: 8:59 μμ
- * Since: TODO ${VERSION}
+ * Since: 141110
  * Copyright: 2014 Panagiotis Vagenas
  */
 
@@ -25,7 +25,7 @@ class Hooks extends Core {
 	 * @return bool
 	 * @throws \PrestaShopException
 	 * @static * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
+	 * @since 141110
 	 */
 	public static function registerHooks(\Module &$module, Hooks &$class) {
 		$hooks = (array) get_class_methods(get_class($class));

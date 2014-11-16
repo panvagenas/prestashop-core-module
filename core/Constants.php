@@ -5,7 +5,7 @@
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
  * Date: 11/11/2014
  * Time: 8:43 μμ
- * Since: TODO ${VERSION}
+ * Since: 141110
  * Copyright: 2014 Panagiotis Vagenas
  */
 
@@ -19,7 +19,7 @@ if (!defined('_PS_VERSION_'))
  * Class Constants. XDaRk Core constants
  * @package XDaRk
  * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
- * @since TODO Enter Product Version
+ * @since 141110
  */
 interface Constants
 {

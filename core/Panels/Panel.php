@@ -5,7 +5,7 @@
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
  * Date: 15/11/2014
  * Time: 9:09 πμ
- * Since: TODO ${VERSION}
+ * Since: 141110
  * Copyright: 2014 Panagiotis Vagenas
  */
 
@@ -347,20 +347,25 @@ class Panel extends Core
 	 * TODO Implement this
 	 * @return array
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
+	 * @since 141110
 	 */
 	public function __toArray()
 	{
-		return array(
-			'form' => array(
-				'legend' => array(
-					'title' => $this->title,
-					'image' => $this->image,
-				),
-				'input' => $this->input,
-				'submit' => $this->submit,
-			)
-		);
+		$ar = array();
+		if (!empty($this->title)) {
+			$ar['form']['legend']['title'] = $this->title;
+		}
+		if (!empty($this->image)) {
+			$ar['form']['legend']['image'] = $this->image;
+		}
+		if (!empty($this->input)) {
+			$ar['form']['input'] = $this->input;
+		}
+		if (!empty($this->submit)) {
+			$ar['form']['submit'] = $this->submit;
+		}
+
+		return $ar;
 	}
 
 	/**
@@ -373,7 +378,7 @@ class Panel extends Core
 	public function parseFieldsValues(Array $fieldValues)
 	{
 		$ar = array();
-		foreach ((array)$this->input as $ki => $fi) {
+		foreach ((array) $this->input as $ki => $fi) {
 			if ($this->isMultiSelectField($fi) && isset($fieldValues[ rtrim($fi['name'], '[]') ])) {
 				$ar[ $fi['name'] ] = $fieldValues[ rtrim($fi['name'], '[]') ];
 			} elseif (isset($fieldValues[ $fi['name'] ])) {
@@ -384,7 +389,8 @@ class Panel extends Core
 		return $ar;
 	}
 
-	public function isInSidebar(){
+	public function isInSidebar()
+	{
 		return $this->type === 'sidebar';
 	}
 
@@ -404,6 +410,7 @@ class Panel extends Core
 	public function setImage($image)
 	{
 		$this->image = $image;
+
 		return $this;
 	}
 
@@ -423,6 +430,7 @@ class Panel extends Core
 	public function setInput($input)
 	{
 		$this->input = $input;
+
 		return $this;
 	}
 
@@ -442,6 +450,7 @@ class Panel extends Core
 	public function setTab($tab)
 	{
 		$this->tab = $tab;
+
 		return $this;
 	}
 
@@ -461,6 +470,7 @@ class Panel extends Core
 	public function setTitle($title)
 	{
 		$this->title = $title;
+
 		return $this;
 	}
 
@@ -480,6 +490,7 @@ class Panel extends Core
 	public function setType($type)
 	{
 		$this->type = $type;
+
 		return $this;
 	}
 
@@ -491,10 +502,12 @@ class Panel extends Core
 	public function setSubmit(Array $submit)
 	{
 		$this->submit = $submit;
+
 		return $this;
 	}
 
-	public function getSubmit(){
+	public function getSubmit()
+	{
 		return $this->submit;
 	}
 } 

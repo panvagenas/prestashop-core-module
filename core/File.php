@@ -5,7 +5,7 @@
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
  * Date: 11/11/2014
  * Time: 8:46 μμ
- * Since: TODO ${VERSION}
+ * Since: 141110
  * Copyright: 2014 Panagiotis Vagenas
  */
 
@@ -21,7 +21,7 @@ class File extends Core {
 	 *
 	 * @return array
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
+	 * @since 141110
 	 */
 	public static function filesInDir($dir) {
 		return self::filesInDirRegex($dir, Core::$__REGEX_MATCH_ALL__);
@@ -33,7 +33,7 @@ class File extends Core {
 	 *
 	 * @return array
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
+	 * @since 141110
 	 */
 	public static function filesInDirRegex($dir, $regex) {
 		$ar = array();
@@ -54,7 +54,7 @@ class File extends Core {
 	 *
 	 * @return array
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
+	 * @since 141110
 	 */
 	public static function phpFilesInDir($dir) {
 		return self::filesInDirRegex($dir, Core::$__REGEX_MATCH_PHP_FILES);
@@ -65,7 +65,7 @@ class File extends Core {
 	 *
 	 * @return array
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
+	 * @since 141110
 	 */
 	public static function phpClassesInDir($dir) {
 		$files = self::phpFilesInDir($dir);

@@ -5,7 +5,7 @@
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
  * Date: 13/11/2014
  * Time: 12:00 πμ
- * Since: TODO ${VERSION}
+ * Since: 141110
  * Copyright: 2014 Panagiotis Vagenas
  */
 
@@ -73,7 +73,7 @@ class Module extends \XDaRk\Module
 	/**
 	 * @return string
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
+	 * @since 141110
 	 */
 	protected function xdGetContent()
 	{
@@ -81,12 +81,7 @@ class Module extends \XDaRk\Module
 			->registerPanel(new MainOptions($this))
 			->registerPanel(new SideBar($this))
 			->initialize($this)
-			->generateForm(array(
-				'text'     => 'Default value',
-				'multi'    => array('another_option_value'),
-				'date'     => date('Y-m-d'),
-				'datetime' => date('Y-m-d'),
-			));
+			->generateForm($this->Options->getOptionsArray());
 
 	}
 }
