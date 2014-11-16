@@ -20,6 +20,8 @@
 
 namespace XDaRk;
 
+use XDaRk\Panels\Panel;
+
 if (!defined('_PS_VERSION_')) {
 	exit;
 }
@@ -29,6 +31,8 @@ class Form extends \HelperFormCore
 	protected $default_lang;
 	protected $initialized = false;
 	protected $tab = 0;
+	protected $panels = array();
+	public $fields_value = array();
 
 	/**
 	 * @param array $fieldValues
@@ -39,85 +43,62 @@ class Form extends \HelperFormCore
 	 */
 	public function setFieldsValues(Array $fieldValues)
 	{
-		foreach ($this->fields_form as $k => $f) {
-			if (isset($f['form']['input'])) {
-				foreach ($f['form']['input'] as $ki => $fi) {
-					if ($this->isMultiSelectField($fi) && isset($fieldValues[ rtrim($fi['name'], '[]') ])) {
-						$this->fields_value[ $fi['name'] ] = $fieldValues[ rtrim($fi['name'], '[]') ];
-						unset ($fieldValues[ rtrim($fi['name'], '[]') ]);
-					} elseif (isset($fieldValues[ $fi['name'] ])) {
-						$this->fields_value[ $fi['name'] ] = $fieldValues[ $fi['name'] ];
-					}
-				}
-			}
+		/* @var Panel $panel */
+		foreach ((array)$this->panels as $panel) {
+			$this->fields_value = array_merge($this->fields_value, $panel->parseFieldsValues($fieldValues));
 		}
-
-		array_merge($this->fields_value, $fieldValues);
 
 		return $this;
 	}
 
 	/**
-	 * @param $index
-	 * @param $title
-	 * @param $image
-	 * @param string $submitTitle
-	 * @param string $submitClass
+	 * @param Panel $panel
 	 *
 	 * @return $this
-	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since TODO Enter Product ${VERSION}
 	 */
-	public function setTab($index, $title, $image, $type='main',$submitTitle = 'Save', $submitClass = 'button pull-right')
-	{
-		$this->tab                                     = $index;
-		$this->fields_form[ $index ]['form']['legend'] = array('title' => $title);
-		if ($image) {
-			$this->fields_form[ $index ]['form']['legend']['image'] = $image;
-		}
-		$this->fields_form[ $index ]['form']['submit'] = array(
-			'title' => $submitTitle,
-			'class' => $submitClass
-		);
-		$this->fields_form[ $index ]['type'] = $type;
-
+	public function registerPanel(Panel $panel){
+		array_push($this->panels, $panel);
 		return $this;
 	}
 
 
 	/**
-	 * @param array $fields_form
 	 * @param array $fields_value
-	 * @param \Module $module
 	 *
 	 * @return string
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since ${VERSION}
 	 */
-	public function generateForm($fields_form = array(), $fields_value = array(), \Module $module = null)
+	public function generateForm($fields_value = array())
 	{
-		if ((empty($fields_form) || empty($fields_value) || empty($module)) && $this->initialized) {
+		if(empty($this->fields_value) && !empty($fields_value)){
+			$this->setFieldsValues($fields_value);
+		} elseif(!empty($this->panels)) {
+			return '';
+		}
+
+		if ( !empty($this->panels) && $this->initialized)
+		{
 			$main = '';
 			$sidebar = '';
-			$fields_form = $this->fields_form;
-			foreach ($fields_form as $k => $form) {
-				if($form['type'] == 'sidebar'){
-					$sidebar .= parent::generateForm(array($form));
+			/* @var $panel Panel */
+			foreach ($this->panels as $k => $panel) {
+				if($panel->isInSidebar()){
+					$sidebar .= parent::generateForm(array($panel->__toArray()));
 				} else {
-					$main .= parent::generateForm(array($form));
+					$main .= parent::generateForm(array($panel->__toArray()));
 				}
 			}
 
+			if(empty($sidebar)){
+				return $main;
+			}
 			return '<div class="row"><div class="col-lg-9">'.$main.'</div><div class="col-lg-3">'.$sidebar.'</div></div>';
-		} else {
-			$form = new Form($module);
-			$form->initialize($module);
-			$this->setFieldsForm($fields_form)->setFieldsValues($fields_value);
-
-			return $form->generate();
 		}
+		return '';
 	}
 
 	/**
@@ -137,9 +118,6 @@ class Form extends \HelperFormCore
 
 	/**
 	 * @param $module
-	 * @param int $startTab
-	 * @param string $tabTitle
-	 * @param bool $tabImage
 	 * @param bool $bootstrap
 	 * @param bool $title
 	 * @param bool $showToolbar
@@ -151,7 +129,7 @@ class Form extends \HelperFormCore
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since ${VERSION}
 	 */
-	public function initialize($module, $startTab = 0, $tabTitle = 'General Options', $tabImage = false, $bootstrap = true, $title = false, $showToolbar = true, $toolBarScroll = true, $toolbarBtn = array())
+	public function initialize($module, $bootstrap = true, $title = false, $showToolbar = true, $toolBarScroll = true, $toolbarBtn = array())
 	{
 		$this->default_lang = (int) \Configuration::get('PS_LANG_DEFAULT');
 
@@ -185,8 +163,6 @@ class Form extends \HelperFormCore
 				)
 			)
 				: $toolbarBtn;
-
-		$this->setTab($startTab, $tabTitle, $tabImage);
 
 		$this->initialized = true;
 

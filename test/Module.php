@@ -11,6 +11,9 @@
 
 namespace Test;
 
+use Test\Panels\MainOptions;
+use Test\Panels\SideBar;
+
 require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR.'Module.php';
 
 class Module extends \XDaRk\Module
@@ -74,49 +77,17 @@ class Module extends \XDaRk\Module
 	 */
 	protected function xdGetContent()
 	{
-		return $this->Form->initialize($this, 0, 'Main Area')
-		                  ->addTextField('Text Field', 'text')
-		                  ->addMultiSelectField('Multiple Select Field', 'multi', array(
-				                  array(
-					                  'name'  => 'Some Option',
-					                  'value' => 'some_option_value'
-				                  ),
-				                  array(
-					                  'name'  => 'Another Option',
-					                  'value' => 'another_option_value'
-				                  )
-			                  )
-		                  )
-		                  ->addDateField('Date Field', 'date')
-		                  ->addDateTimeField('Datetime Field', 'datetime')
-		                  ->setFieldsValues(array(
-			                  'text'     => 'Default value',
-			                  'multi'    => array('another_option_value'),
-			                  'date'     => date('Y-m-d'),
-			                  'datetime' => date('Y-m-d'),
-		                  ))
-			->setTab(1, 'Sidebar', false, 'sidebar')
-			->addTextField('Text Field', 'text')
-			->addMultiSelectField('Multiple Select Field', 'multi', array(
-					array(
-						'name'  => 'Some Option',
-						'value' => 'some_option_value'
-					),
-					array(
-						'name'  => 'Another Option',
-						'value' => 'another_option_value'
-					)
-				)
-			)
-			->addDateField('Date Field', 'date')
-			->addDateTimeField('Datetime Field', 'datetime')
-			->setFieldsValues(array(
+		return $this->Form
+			->registerPanel(new MainOptions($this))
+			->registerPanel(new SideBar($this))
+			->initialize($this)
+			->generateForm(array(
 				'text'     => 'Default value',
 				'multi'    => array('another_option_value'),
 				'date'     => date('Y-m-d'),
 				'datetime' => date('Y-m-d'),
-			))
-		                  ->generateForm();
+			));
+
 	}
 }
 

@@ -20,7 +20,15 @@ if (!defined('_PS_VERSION_'))
 class Panel extends Core
 {
 	protected $tab = 0;
-	protected $fields = array();
+	protected $type = 'main';
+	protected $title = 'XDaRk Core Options Panel';
+	protected $image = false; // TODO set a default image
+	protected $input = array();
+	protected $submit = array(
+		'title' => 'Save',
+		'class' => 'button pull-right'
+	);
+	protected $values = array();
 
 	/**
 	 * @param $label
@@ -271,7 +279,6 @@ class Panel extends Core
 	}
 
 
-
 	/**
 	 * @param $field
 	 *
@@ -286,7 +293,6 @@ class Panel extends Core
 	}
 
 
-
 	/**
 	 * @param $field
 	 *
@@ -297,17 +303,198 @@ class Panel extends Core
 	 */
 	public function addField($field)
 	{
-		if (!isset($this->fields) || !is_array($this->fields)) {
-			$this->fields = array();
+		if (!isset($this->input) || !is_array($this->input)) {
+			$this->input = array();
 		}
-		if (!isset($this->fields['form']) || !is_array($this->fields['form'])) {
-			$this->fields['form'] = array();
-		}
-		if (!isset($this->fields['form']['input']) || !is_array($this->fields['form']['input'])) {
-			$this->fields['form']['input'] = array();
-		}
-		array_push($this->fields['form']['input'], $field);
+		array_push($this->input, $field);
 
 		return $this;
+	}
+
+	/**
+	 * @param $index
+	 * @param $title
+	 * @param $image
+	 * @param string $type
+	 * @param string $submitTitle
+	 * @param string $submitClass
+	 *
+	 * @return Panel
+	 *
+	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+	 * @since ${VERSION}
+	 */
+	public function factory($index, $title, $image, $type = 'main', $submitTitle = 'Save', $submitClass = 'button pull-right')
+	{
+		$panel = new self($this->moduleInstance);
+		$panel->setTab($index);
+		$panel->setTitle($title);
+		$this->title = $title;
+		if ($image) {
+			$panel->setImage($image);
+		}
+		$panel->setSubmit(array(
+			'title' => $submitTitle,
+			'class' => $submitClass
+		));
+
+		$panel->setType($type);
+
+		return $panel;
+	}
+
+	/**
+	 * TODO Implement this
+	 * @return array
+	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+	 * @since TODO Enter Product ${VERSION}
+	 */
+	public function __toArray()
+	{
+		return array(
+			'form' => array(
+				'legend' => array(
+					'title' => $this->title,
+					'image' => $this->image,
+				),
+				'input' => $this->input,
+				'submit' => $this->submit,
+			)
+		);
+	}
+
+	/**
+	 * @param array $fieldValues
+	 *
+	 * @return array
+	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+	 * @since ${VERSION}
+	 */
+	public function parseFieldsValues(Array $fieldValues)
+	{
+		$ar = array();
+		foreach ((array)$this->input as $ki => $fi) {
+			if ($this->isMultiSelectField($fi) && isset($fieldValues[ rtrim($fi['name'], '[]') ])) {
+				$ar[ $fi['name'] ] = $fieldValues[ rtrim($fi['name'], '[]') ];
+			} elseif (isset($fieldValues[ $fi['name'] ])) {
+				$ar[ $fi['name'] ] = $fieldValues[ $fi['name'] ];
+			}
+		}
+
+		return $ar;
+	}
+
+	public function isInSidebar(){
+		return $this->type === 'sidebar';
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isImageSet()
+	{
+		return $this->image;
+	}
+
+	/**
+	 * @param boolean $image
+	 *
+	 * @return $this
+	 */
+	public function setImage($image)
+	{
+		$this->image = $image;
+		return $this;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getInput()
+	{
+		return $this->input;
+	}
+
+	/**
+	 * @param array $input
+	 *
+	 * @return $this
+	 */
+	public function setInput($input)
+	{
+		$this->input = $input;
+		return $this;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getTab()
+	{
+		return $this->tab;
+	}
+
+	/**
+	 * @param int $tab
+	 *
+	 * @return $this
+	 */
+	public function setTab($tab)
+	{
+		$this->tab = $tab;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTitle()
+	{
+		return $this->title;
+	}
+
+	/**
+	 * @param string $title
+	 *
+	 * @return $this
+	 */
+	public function setTitle($title)
+	{
+		$this->title = $title;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getType()
+	{
+		return $this->type;
+	}
+
+	/**
+	 * @param string $type
+	 *
+	 * @return $this
+	 */
+	public function setType($type)
+	{
+		$this->type = $type;
+		return $this;
+	}
+
+	/**
+	 * @param array $submit
+	 *
+	 * @return $this
+	 */
+	public function setSubmit(Array $submit)
+	{
+		$this->submit = $submit;
+		return $this;
+	}
+
+	public function getSubmit(){
+		return $this->submit;
 	}
 } 
