@@ -14,7 +14,6 @@ namespace XDaRk;
 if (!defined('_PS_VERSION_'))
 	exit;
 
-
 /**
  * A general-purpose implementation that includes the optional functionality
  * of allowing multiple base directories for a single namespace prefix.

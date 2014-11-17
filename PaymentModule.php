@@ -1,23 +1,18 @@
 <?php
 /**
  * Project: coremodule
- * File: Module.php
+ * File: PaymentModule.php
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
- * Date: 12/11/2014
- * Time: 9:55 μμ
- * Since: 141110
+ * Date: 17/11/2014
+ * Time: 8:15 πμ
+ * Since: TODO ${VERSION}
  * Copyright: 2014 Panagiotis Vagenas
  */
 
 namespace XDaRk;
 
-if (!defined('_PS_VERSION_'))
-	exit;
-
-require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'XDAutoLoader.php';
-
 /**
- * Class Module
+ * Class PaymentModule
  * @package XDaRk
  * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
  * @since 141110
@@ -30,7 +25,7 @@ require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'XDAutoLoader.php';
  * @property \XDaRk\Options         Options
  * @property \XDaRk\XML             XML
  */
-abstract class Module extends \Module {
+abstract class PaymentModule extends \PaymentModule{
 	/**
 	 * @var string Name of this plugin
 	 */
@@ -80,7 +75,7 @@ abstract class Module extends \Module {
 	 */
 	public $core;
 
-	public function __call($name, $args) {
+	public final function __call($name, $args) {
 		// hook functions to Hook class
 		if (Hooks::isHookFunction($name)) {
 			$name = 'hook'.ucfirst(ltrim($name, 'hook'));
@@ -94,7 +89,7 @@ abstract class Module extends \Module {
 		throw new \Exception('Undefined Method '.$name);
 	}
 
-	public function __isset($name) {
+	public final function __isset($name) {
 		// hook functions to Hook class
 		if (Hooks::isHookFunction($name)) {
 			return true;
@@ -103,14 +98,10 @@ abstract class Module extends \Module {
 		return false;
 	}
 
-	public function __get($name) {
+	public final function __get($name) {
 		return $this->core->{$name};
 	}
 
-	/**
-	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
-	 */
 	public final function _initialize() {
 		$this->loader = new XDAutoLoader();
 		$this->loader->register();
@@ -136,7 +127,7 @@ abstract class Module extends \Module {
 	}
 
 	/**
-	 * @extend
+	 *
 	 */
 	public function __construct() {
 		parent::__construct();
@@ -161,7 +152,7 @@ abstract class Module extends \Module {
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since ${VERSION}
 	 */
-	public final function getContent() {
+	public function getContent() {
 		$output = '';
 
 		if ( \Tools::isSubmit( 'submit' . $this->name ) ) {
@@ -187,26 +178,22 @@ abstract class Module extends \Module {
 	}
 
 	/**
-	 * @doNotExtend
-	 *
 	 * @return bool
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since ${VERSION}
 	 */
-	public final function install() {
+	public function install() {
 		return parent::install() && $this->Installer->install();
 	}
 
 	/**
-	 * @doNotExtend
-	 *
 	 * @return bool
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since ${VERSION}
 	 */
-	public final function uninstall() {
+	public function uninstall() {
 		return parent::uninstall() && $this->Installer->uninstall();
 	}
-}
+} 

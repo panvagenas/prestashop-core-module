@@ -11,9 +11,8 @@
 
 namespace XDaRk;
 
-if (!defined('_PS_VERSION_')) {
+if (!defined('_PS_VERSION_'))
 	exit;
-}
 
 abstract class CarrierModule extends Module {
 	abstract public function getOrderShippingCost($params, $shipping_cost);
