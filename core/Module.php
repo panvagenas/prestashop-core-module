@@ -29,6 +29,7 @@ require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'XDAutoLoader.php';
  * @property \XDaRk\Installer       Installer
  * @property \XDaRk\Options         Options
  * @property \XDaRk\XML             XML
+ * @property \XDaRk\Exception       Exception
  */
 abstract class Module extends \Module {
 	/**
