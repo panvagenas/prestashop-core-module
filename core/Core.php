@@ -19,7 +19,7 @@ if (!defined('_PS_VERSION_'))
  * @package XDaRk
  * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
  * @since TODO Enter Product Version
- * 
+ *
  * @property \XDaRk\Dir             Dir
  * @property \XDaRk\File            File
  * @property \XDaRk\Form            Form
@@ -29,6 +29,8 @@ if (!defined('_PS_VERSION_'))
  * @property \XDaRk\XML             XML
  * @property \XDaRk\Exception       Exception
  * @property \XDaRk\Method          Method
+ * @property \XDaRk\String          String
+ * @property \XDaRk\Vars            Vars
  */
 class Core implements Constants
 {
@@ -66,15 +68,48 @@ class Core implements Constants
 
 		$nsName = (in_array($name, Core::$instanceClasses) ? Core::$instanceNamespace : __NAMESPACE__).'\\'.$name;
 
-		if (in_array($name, Core::$instanceClasses)) {
+		if (in_array($name, Core::$instanceClasses))
 			return $this->{$name} = new $nsName($this->moduleInstance, $this);
-		} elseif (in_array($name, Core::$classes)) {
+		elseif (in_array($name, Core::$classes))
 			return $this->{$name} = new $nsName($this->moduleInstance);
-		} elseif (in_array($name, Core::$singletonClasses)) {
+		elseif (in_array($name, Core::$singletonClasses))
 			return $this->{$name} = $nsName::getInstance();
-		}
+
 
 		return null;
+	}
+
+	public function __call($name, $args)
+	{
+		if (method_exists($this, $name)) {
+			return $this->{$name}($args);
+		}
+
+		$nsName = (in_array($name, Core::$instanceClasses) ? Core::$instanceNamespace : __NAMESPACE__).'\\'.$name;
+
+		if (in_array($name, Core::$instanceClasses))
+			return new $nsName($args);
+		elseif (in_array($name, Core::$classes))
+			return new $nsName($args);
+		elseif (in_array($name, Core::$singletonClasses))
+			return $nsName::getInstance($args);
+
+
+		return null;
+	}
+
+	public function __isset($name)
+	{
+		// hook functions to Hook class
+		if (Hooks::isHookFunction($name)
+		    || in_array($name, Core::$instanceClasses)
+		    || in_array($name, Core::$classes)
+		    || in_array($name, Core::$singletonClasses)
+		)
+			return true;
+
+
+		return false;
 	}
 
 	/**
@@ -101,7 +136,7 @@ class Core implements Constants
 	protected function __construct(\Module &$moduleInstance)
 	{
 		$this->instanceNamespaceClass = get_class($this);
-		$this->moduleInstance = $moduleInstance;
+		$this->moduleInstance         = $moduleInstance;
 	}
 
 	/**
@@ -120,55 +155,42 @@ class Core implements Constants
 		'string'          => 'is_string',
 		'!string'         => 'is_string',
 		'string:!empty'   => 'is_string',
-
 		'boolean'         => 'is_bool',
 		'!boolean'        => 'is_bool',
 		'boolean:!empty'  => 'is_bool',
-
 		'bool'            => 'is_bool',
 		'!bool'           => 'is_bool',
 		'bool:!empty'     => 'is_bool',
-
 		'integer'         => 'is_integer',
 		'!integer'        => 'is_integer',
 		'integer:!empty'  => 'is_integer',
-
 		'int'             => 'is_integer',
 		'!int'            => 'is_integer',
 		'int:!empty'      => 'is_integer',
-
 		'float'           => 'is_float',
 		'!float'          => 'is_float',
 		'float:!empty'    => 'is_float',
-
 		'real'            => 'is_float',
 		'!real'           => 'is_float',
 		'real:!empty'     => 'is_float',
-
 		'double'          => 'is_float',
 		'!double'         => 'is_float',
 		'double:!empty'   => 'is_float',
-
 		'numeric'         => 'is_numeric',
 		'!numeric'        => 'is_numeric',
 		'numeric:!empty'  => 'is_numeric',
-
 		'scalar'          => 'is_scalar',
 		'!scalar'         => 'is_scalar',
 		'scalar:!empty'   => 'is_scalar',
-
 		'array'           => 'is_array',
 		'!array'          => 'is_array',
 		'array:!empty'    => 'is_array',
-
 		'object'          => 'is_object',
 		'!object'         => 'is_object',
 		'object:!empty'   => 'is_object',
-
 		'resource'        => 'is_resource',
 		'!resource'       => 'is_resource',
 		'resource:!empty' => 'is_resource',
-
 		'null'            => 'is_null',
 		'!null'           => 'is_null',
 		'null:!empty'     => 'is_null'
@@ -257,12 +279,11 @@ class Core implements Constants
 		$_last_arg_value                      = array_pop($_arg_type_hints__args__required_args);
 		$required_args                        = 0; // Default number of required arguments.
 
-		if(is_integer($_last_arg_value)) // Required arguments?
+		if (is_integer($_last_arg_value)) // Required arguments?
 		{
 			$required_args = $_last_arg_value; // Number of required arguments.
-			$args          = (array)array_pop($_arg_type_hints__args__required_args);
-		}
-		else $args = (array)$_last_arg_value; // Use `$_last_arg_value` as `$args`.
+			$args          = (array) array_pop($_arg_type_hints__args__required_args);
+		} else $args = (array) $_last_arg_value; // Use `$_last_arg_value` as `$args`.
 
 		$arg_type_hints      = $_arg_type_hints__args__required_args; // Type hints (remaining arguments).
 		$total_args          = count($args); // Total arguments passed into the function/method we're checking.
@@ -271,25 +292,25 @@ class Core implements Constants
 		// Commenting for performance. NOT absolutely necessary.
 		# unset($_arg_type_hints__args__required_args, $_last_arg_value); // Housekeeping.
 
-		if($total_args < $required_args) // Enforcing minimum args?
+		if ($total_args < $required_args) // Enforcing minimum args?
 			throw $this->Exception->factory( // Need to be VERY descriptive here.
 				$this->method(__FUNCTION__).'#args_missing', get_defined_vars(),
 				sprintf($this->moduleInstance->l('Missing required argument(s); `%1$s` requires `%2$s`, `%3$s` given.'),
 					$this->Method->get_backtrace_callers(debug_backtrace(), 'last'), $required_args, $total_args).
 				' '.sprintf($this->moduleInstance->l('Got: `%1$s`.'), $this->©var->dump($args)));
 
-		if($total_args === 0) return TRUE; // Stop here (no arguments to check).
+		if ($total_args === 0)
+			return true; // Stop here (no arguments to check).
 
-		foreach($arg_type_hints as $_arg_position => $_arg_type_hints) // Type hints.
+		foreach ($arg_type_hints as $_arg_position => $_arg_type_hints) // Type hints.
 		{
-			if($_arg_position > $total_arg_positions) // Argument not even passed in?
+			if ($_arg_position > $total_arg_positions) // Argument not even passed in?
 				continue; // Argument was not even passed in (we don't need to check this value).
 
 			unset($_last_arg_type_key); // Unset before iterating (define below if necessary).
 
-			foreach(($_arg_types = (array)$_arg_type_hints) as $_arg_type_key => $_arg_type)
-			{
-				switch(($_arg_type = (string)$_arg_type)) // Checks type requirements.
+			foreach (($_arg_types = (array) $_arg_type_hints) as $_arg_type_key => $_arg_type) {
+				switch (($_arg_type = (string) $_arg_type)) // Checks type requirements.
 				{
 					case '': // Anything goes (there are NO requirements).
 						break 2; // We have a valid type/value here.
@@ -297,24 +318,22 @@ class Core implements Constants
 					/****************************************************************************/
 
 					case ':!empty': // Anything goes. But check if it's empty.
-						if(empty($args[$_arg_position])) // Is empty?
+						if (empty($args[ $_arg_position ])) // Is empty?
 						{
-							if(!isset($_last_arg_type_key))
+							if (!isset($_last_arg_type_key))
 								$_last_arg_type_key = count($_arg_types) - 1;
 
-							if($_arg_type_key === $_last_arg_type_key)
-								// Exhausted list of possible types.
+							if ($_arg_type_key === $_last_arg_type_key) // Exhausted list of possible types.
 							{
 								$problem = array(
 									'types'    => $_arg_types,
 									'position' => $_arg_position,
-									'value'    => $args[$_arg_position],
-									'empty'    => empty($args[$_arg_position])
+									'value'    => $args[ $_arg_position ],
+									'empty'    => empty($args[ $_arg_position ])
 								);
 								break 3; // We DO have a problem here.
 							}
-						}
-						else break 2; // We have a valid type/value here.
+						} else break 2; // We have a valid type/value here.
 
 						break 1; // Default break 1; and continue type checking.
 
@@ -335,26 +354,24 @@ class Core implements Constants
 					case 'resource':
 					case 'null':
 
-						$is_ = static::$___is_type_checks[$_arg_type];
+						$is_ = static::$___is_type_checks[ $_arg_type ];
 
-						if(!$is_($args[$_arg_position])) // Not this type?
+						if (!$is_($args[ $_arg_position ])) // Not this type?
 						{
-							if(!isset($_last_arg_type_key))
+							if (!isset($_last_arg_type_key))
 								$_last_arg_type_key = count($_arg_types) - 1;
 
-							if($_arg_type_key === $_last_arg_type_key)
-								// Exhausted list of possible types.
+							if ($_arg_type_key === $_last_arg_type_key) // Exhausted list of possible types.
 							{
 								$problem = array(
 									'types'    => $_arg_types,
 									'position' => $_arg_position,
-									'value'    => $args[$_arg_position],
-									'empty'    => empty($args[$_arg_position])
+									'value'    => $args[ $_arg_position ],
+									'empty'    => empty($args[ $_arg_position ])
 								);
 								break 3; // We DO have a problem here.
 							}
-						}
-						else break 2; // We have a valid type/value here.
+						} else break 2; // We have a valid type/value here.
 
 						break 1; // Default break 1; and continue type checking.
 
@@ -375,26 +392,24 @@ class Core implements Constants
 					case '!resource':
 					case '!null':
 
-						$is_ = static::$___is_type_checks[$_arg_type];
+						$is_ = static::$___is_type_checks[ $_arg_type ];
 
-						if($is_($args[$_arg_position])) // Is this type?
+						if ($is_($args[ $_arg_position ])) // Is this type?
 						{
-							if(!isset($_last_arg_type_key))
+							if (!isset($_last_arg_type_key))
 								$_last_arg_type_key = count($_arg_types) - 1;
 
-							if($_arg_type_key === $_last_arg_type_key)
-								// Exhausted list of possible types.
+							if ($_arg_type_key === $_last_arg_type_key) // Exhausted list of possible types.
 							{
 								$problem = array(
 									'types'    => $_arg_types,
 									'position' => $_arg_position,
-									'value'    => $args[$_arg_position],
-									'empty'    => empty($args[$_arg_position])
+									'value'    => $args[ $_arg_position ],
+									'empty'    => empty($args[ $_arg_position ])
 								);
 								break 3; // We DO have a problem here.
 							}
-						}
-						else break 2; // We have a valid type/value here.
+						} else break 2; // We have a valid type/value here.
 
 						break 1; // Default break 1; and continue type checking.
 
@@ -415,27 +430,24 @@ class Core implements Constants
 					case 'resource:!empty':
 					case 'null:!empty':
 
-						$is_ = static::$___is_type_checks[$_arg_type];
+						$is_ = static::$___is_type_checks[ $_arg_type ];
 
-						if(!$is_($args[$_arg_position]) || empty($args[$_arg_position]))
-							// Now, have we exhausted the list of possible types?
+						if (!$is_($args[ $_arg_position ]) || empty($args[ $_arg_position ])) // Now, have we exhausted the list of possible types?
 						{
-							if(!isset($_last_arg_type_key))
+							if (!isset($_last_arg_type_key))
 								$_last_arg_type_key = count($_arg_types) - 1;
 
-							if($_arg_type_key === $_last_arg_type_key)
-								// Exhausted list of possible types.
+							if ($_arg_type_key === $_last_arg_type_key) // Exhausted list of possible types.
 							{
 								$problem = array(
 									'types'    => $_arg_types,
 									'position' => $_arg_position,
-									'value'    => $args[$_arg_position],
-									'empty'    => empty($args[$_arg_position])
+									'value'    => $args[ $_arg_position ],
+									'empty'    => empty($args[ $_arg_position ])
 								);
 								break 3; // We DO have a problem here.
 							}
-						}
-						else break 2; // We have a valid type/value here.
+						} else break 2; // We have a valid type/value here.
 
 						break 1; // Default break 1; and continue type checking.
 
@@ -446,24 +458,21 @@ class Core implements Constants
 						// It's VERY rare that one would need to require something that's NOT a specific object instance.
 						// Objects are NEVER empty anyway, according to PHPs `empty()` function.
 
-						if(!($args[$_arg_position] instanceof $_arg_type))
-						{
-							if(!isset($_last_arg_type_key))
+						if (!($args[ $_arg_position ] instanceof $_arg_type)) {
+							if (!isset($_last_arg_type_key))
 								$_last_arg_type_key = count($_arg_types) - 1;
 
-							if($_arg_type_key === $_last_arg_type_key)
-								// Exhausted list of possible types.
+							if ($_arg_type_key === $_last_arg_type_key) // Exhausted list of possible types.
 							{
 								$problem = array(
 									'types'    => $_arg_types,
 									'position' => $_arg_position,
-									'value'    => $args[$_arg_position],
-									'empty'    => empty($args[$_arg_position])
+									'value'    => $args[ $_arg_position ],
+									'empty'    => empty($args[ $_arg_position ])
 								);
 								break 3; // We DO have a problem here.
 							}
-						}
-						else break 2; // We have a valid type for this arg.
+						} else break 2; // We have a valid type for this arg.
 
 						break 1; // Default break 1; and continue type checking.
 				}
@@ -472,7 +481,7 @@ class Core implements Constants
 		// Commenting for performance. NOT absolutely necessary.
 		# unset($_arg_position, $_arg_type_hints, $_arg_types, $_arg_type_key, $_last_arg_type_key, $_arg_type, $is_);
 
-		if(!empty($problem)) // We have a problem!
+		if (!empty($problem)) // We have a problem!
 		{
 			$position   = $problem['position'] + 1;
 			$types      = implode('|', $problem['types']);
@@ -485,7 +494,8 @@ class Core implements Constants
 					$position, $this->Method->get_backtrace_callers(debug_backtrace(), 'last'), $types, $empty, $type_given).
 				' '.sprintf($this->moduleInstance->l('Got: `%1$s`.'), $this->©var->dump($args)));
 		}
-		return TRUE; // Default return value (no problem).
+
+		return true; // Default return value (no problem).
 	}
 
 	/**
@@ -501,7 +511,7 @@ class Core implements Constants
 	 */
 	final public function method($function)
 	{
-		$function = (string)$function; // Force string.
+		$function = (string) $function; // Force string.
 
 		return $this->instanceNamespaceClass.'::'.$function;
 	}

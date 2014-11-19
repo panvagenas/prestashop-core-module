@@ -90,9 +90,9 @@ abstract class Module extends \Module {
 			}
 
 			return $this->Hooks->{$name}($args);
+		} else {
+			return $this->core->{$name}($args);
 		}
-		// TODO Maybe we should povide some other key accesses too
-		throw new \Exception('Undefined Method '.$name);
 	}
 
 	public function __isset($name) {
