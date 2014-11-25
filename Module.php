@@ -14,7 +14,7 @@ namespace XDaRk;
 if (!defined('_PS_VERSION_'))
 	exit;
 
-require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'XDAutoLoader.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'XDAutoLoader.php';
 
 /**
  * Class Module

@@ -7,12 +7,12 @@
     <orderEntry type="module-library">
       <library name="PHP">
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../../../../../Libraries/prestashop_1.6.0.9" />
-          <root url="file://$MODULE_DIR$/../../../../../../Libraries/PHPStorm-CC-PrestaShop-master" />
+          <root url="file:///../Libraries/prestashop_1.6.0.9" />
+          <root url="file:///../Libraries/PHPStorm-CC-PrestaShop-master" />
         </CLASSES>
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../../../../Libraries/prestashop_1.6.0.9" />
-          <root url="file://$MODULE_DIR$/../../../../../../Libraries/PHPStorm-CC-PrestaShop-master" />
+          <root url="file:///../Libraries/prestashop_1.6.0.9" />
+          <root url="file:///../Libraries/PHPStorm-CC-PrestaShop-master" />
         </SOURCES>
       </library>
     </orderEntry>
