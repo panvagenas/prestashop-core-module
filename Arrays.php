@@ -16,7 +16,7 @@ if (!defined('_PS_VERSION_'))
 
 class Arrays extends Core{
 	/**
-	 * Short version of `(isset() && is_array())`.
+	 * Short version of `(isset() && is_array())`
 	 *
 	 * @note Unlike PHP's `is_...` functions, this will NOT throw a NOTICE.
 	 *
