@@ -1,0 +1,12 @@
+{
+    "name": "xdark/coremodule",
+    "description": "readme.md",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Panagiotis Vagenas",
+            "email": "pan.vagenas@gmail.com"
+        }
+    ]
+}
