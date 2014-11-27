@@ -2,7 +2,8 @@
     "name": "xdark/coremodule",
     "description": "readme.md",
     "minimum-stability": "stable",
-    "license": "proprietary",
+    "license": "GPL-3.0+",
+    "version": "141110",
     "authors": [
         {
             "name": "Panagiotis Vagenas",
