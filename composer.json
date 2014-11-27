@@ -9,10 +9,5 @@
             "name": "Panagiotis Vagenas",
             "email": "pan.vagenas@gmail.com"
         }
-    ],
-    "autoload": {
-        "psr-0" : {
-            "XDaRk": "xdark/coremodule"
-        }
-    }
+    ]
 }
