@@ -1,5 +1,5 @@
 {
-    "name": "xdark",
+    "name": "xdark/coremodule",
     "description": "readme.md",
     "minimum-stability": "stable",
     "license": "GPL-3.0+",
@@ -7,9 +7,12 @@
     "authors": [
         {
             "name": "Panagiotis Vagenas",
-            "email": "pan.vagenas@gmail.com",
-            "homepage": "http://xdark.eu",
-            "role": "Developer"
+            "email": "pan.vagenas@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-0" : {
+            "XDaRk": "xdark/coremodule"
+        }
+    }
 }
