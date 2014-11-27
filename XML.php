@@ -14,5 +14,11 @@ namespace XDaRk;
 if (!defined('_PS_VERSION_'))
 	exit;
 
+/**
+ * Class XML
+ * @package XDaRk
+ * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+ * @since TODO Enter Product Version
+ */
 class XML extends Core {
 } 
