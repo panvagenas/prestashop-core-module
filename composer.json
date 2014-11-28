@@ -9,8 +9,5 @@
             "name": "Panagiotis Vagenas",
             "email": "pan.vagenas@gmail.com"
         }
-    ],
-    "autoload": {
-        "files": ["XDAutoLoader.php"]
-    }
+    ]
 }
