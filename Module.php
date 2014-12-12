@@ -15,7 +15,7 @@ if (!defined('_PS_VERSION_'))
 	exit;
 
 if (!class_exists('XDaRk\Module')) {
-	require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'XDAutoLoader.php';
+	require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'AutoLoader.php';
 
 	/**
 	 * Class Module
@@ -75,7 +75,7 @@ if (!class_exists('XDaRk\Module')) {
 		 */
 		public $bootstrap = true;
 		/**
-		 * @var XDAutoLoader
+		 * @var AutoLoader
 		 */
 		protected $loader;
 		/**
@@ -119,7 +119,7 @@ if (!class_exists('XDaRk\Module')) {
 		 */
 		public final function _initialize()
 		{
-			$this->loader = new XDAutoLoader();
+			$this->loader = new AutoLoader();
 			$this->loader->register();
 
 			// Register core namespace
@@ -128,7 +128,7 @@ if (!class_exists('XDaRk\Module')) {
 			$this->core              = Core::getInstance($this);
 			Core::$instanceNamespace = $GLOBALS[ $this->name ]['root_ns'];
 			Core::$instanceBaseDir   = $GLOBALS[ $this->name ]['dir'];
-			Core::$instanceRootNSDir = $GLOBALS[ $this->name ]['dir'].DIRECTORY_SEPARATOR.strtolower(Core::$instanceNamespace);
+			Core::$instanceRootNSDir = $GLOBALS[ $this->name ]['dir'].DIRECTORY_SEPARATOR.Core::$instanceNamespace;
 
 			// Register instance namespace, this is a necessary step
 			$this->loader->addNamespace('\\'.Core::$instanceNamespace, Core::$instanceRootNSDir);

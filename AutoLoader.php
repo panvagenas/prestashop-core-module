@@ -1,7 +1,7 @@
 <?php
 /**
  * Project: coremodule
- * File: XDAutoLoader.php
+ * File: AutoLoader.php
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
  * Date: 11/11/2014
  * Time: 8:33 μμ
@@ -13,7 +13,7 @@ namespace XDaRk;
 
 if (!defined('_PS_VERSION_'))
 	exit;
-if(!class_exists('XDAutoLoader')) {
+if(!class_exists('AutoLoader')) {
 	/**
 	 * A general-purpose implementation that includes the optional functionality
 	 * of allowing multiple base directories for a single namespace prefix.
@@ -57,7 +57,7 @@ if(!class_exists('XDAutoLoader')) {
 	 *      <?php
 	 *      new \Foo\Bar\Qux\QuuxTest();
 	 */
-	class XDAutoLoader
+	class AutoLoader
 	{
 		/**
 		 * An associative array where the key is a namespace prefix and the value
