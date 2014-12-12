@@ -20,6 +20,7 @@ if (!defined('_PS_VERSION_'))
  * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
  * @since TODO Enter Product Version
  *
+ * @property \XDaRk\Module          Module
  * @property \XDaRk\Dir             Dir
  * @property \XDaRk\File            File
  * @property \XDaRk\Form            Form
