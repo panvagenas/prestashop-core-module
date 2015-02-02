@@ -29,7 +29,7 @@ class Installer extends Core {
 	public function uninstall() {
 		$result = true;
 		$result &= $this->xdUninstall();
-
+		$result &= $this->Options->deleteAllOptions();
 		return $result;
 	}
 

@@ -395,4 +395,8 @@ class Options extends Core
 	{
 		return $defaults ? $this->defaults : $this->stored;
 	}
+
+	public function deleteAllOptions(){
+		return \Configuration::deleteByName($this->optionsArrayName);
+	}
 }

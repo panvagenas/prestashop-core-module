@@ -20,6 +20,7 @@ if (!defined('_PS_VERSION_'))
  * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
  * @since TODO Enter Product Version
  *
+ * @property \XDaRk\Module          Module
  * @property \XDaRk\Dir             Dir
  * @property \XDaRk\File            File
  * @property \XDaRk\Form            Form
@@ -57,8 +58,8 @@ class Core implements Constants
 	public static $__REGEX_MATCH_PHP_FILES = '/^.+\.php$/i';
 	public static $__REGEX_HOOK_FUNCTION = '/^(hook)+.+$/';
 
-	protected $moduleInstance;
-	protected $instanceNamespaceClass;
+	public $moduleInstance;
+	public $instanceNamespaceClass;
 
 	public function __get($name)
 	{
@@ -121,12 +122,12 @@ class Core implements Constants
 	 */
 	public static function getInstance(\Module &$moduleInstance)
 	{
-		static $instance = null;
-		if (null === $instance) {
-			$instance = new static($moduleInstance);
+		static $instance = array();
+		if (!isset($instance[$moduleInstance->name]) || null === $instance[$moduleInstance->name]) {
+			$instance[$moduleInstance->name] = new static($moduleInstance);
 		}
 
-		return $instance;
+		return $instance[$moduleInstance->name];
 	}
 
 	/**

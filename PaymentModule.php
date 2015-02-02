@@ -67,7 +67,7 @@ abstract class PaymentModule extends \PaymentModule{
 	 */
 	public $bootstrap = true;
 	/**
-	 * @var XDAutoLoader
+	 * @var AutoLoader
 	 */
 	protected $loader;
 	/**
@@ -103,7 +103,7 @@ abstract class PaymentModule extends \PaymentModule{
 	}
 
 	public final function _initialize() {
-		$this->loader = new XDAutoLoader();
+		$this->loader = new AutoLoader();
 		$this->loader->register();
 
 		// Register core namespace

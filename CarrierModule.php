@@ -14,8 +14,13 @@ namespace XDaRk;
 if (!defined('_PS_VERSION_'))
 	exit;
 
-abstract class CarrierModule extends Module {
-	abstract public function getOrderShippingCost($params, $shipping_cost);
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Module.php';
+if(!class_exists('\XDaRk\CarrierModule')){
+	abstract class CarrierModule extends Module {
+		public $id_carrier;
 
-	abstract public function getOrderShippingCostExternal($params);
-} 
+		abstract public function getOrderShippingCost($params, $shipping_cost);
+
+		abstract public function getOrderShippingCostExternal($params);
+	}
+}
