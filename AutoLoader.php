@@ -13,6 +13,7 @@ namespace XDaRk;
 
 if (!defined('_PS_VERSION_'))
 	exit;
+
 if(!class_exists('\XDaRk\AutoLoader')) {
 	/**
 	 * A general-purpose implementation that includes the optional functionality

@@ -76,7 +76,7 @@ class Options extends Core
 	 * @param $validators
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
+	 * @since 141110
 	 */
 	protected function setUp($defaults, $validators)
 	{
@@ -91,7 +91,7 @@ class Options extends Core
 	 *
 	 * @throws \Exception
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
+	 * @since 141110
 	 */
 	protected function _setUp($defaults, $validators)
 	{
@@ -145,7 +145,7 @@ class Options extends Core
 	 * @return array
 	 * @throws \Exception
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
+	 * @since 141110
 	 */
 	protected function validateOptions(Array $newOptions)
 	{
@@ -371,7 +371,7 @@ class Options extends Core
 	 * Returns all booleans defined in validators array
 	 * @return array assoc $key => $value
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO Enter Product ${VERSION}
+	 * @since 141110
 	 */
 	public function getAllBooleans(){
 		$ret = array();

@@ -18,7 +18,7 @@ if (!defined('_PS_VERSION_'))
  * Class XML
  * @package XDaRk
  * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
- * @since TODO Enter Product Version
+ * @since 141110
  */
 class XML extends Core {
 } 

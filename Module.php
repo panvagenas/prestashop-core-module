@@ -15,7 +15,6 @@ if (!defined('_PS_VERSION_'))
 	exit;
 
 if (!class_exists('XDaRk\Module')) {
-	require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'AutoLoader.php';
 
 	/**
 	 * Class Module
@@ -115,7 +114,7 @@ if (!class_exists('XDaRk\Module')) {
 
 		/**
 		 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-		 * @since TODO Enter Product ${VERSION}
+		 * @since 141110
 		 */
 		public final function _initialize()
 		{
