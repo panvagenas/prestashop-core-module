@@ -151,7 +151,7 @@ if(!class_exists('\XDaRk\PaymentModule')) {
 		 * @return string
 		 *
 		 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-		 * @since ${VERSION}
+		 * @since 141110
 		 */
 		public function getContent() {
 			$output = '';
@@ -182,7 +182,7 @@ if(!class_exists('\XDaRk\PaymentModule')) {
 		 * @return bool
 		 *
 		 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-		 * @since ${VERSION}
+		 * @since 141110
 		 */
 		public function install() {
 			return parent::install() && $this->Installer->install();
@@ -192,7 +192,7 @@ if(!class_exists('\XDaRk\PaymentModule')) {
 		 * @return bool
 		 *
 		 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-		 * @since ${VERSION}
+		 * @since 141110
 		 */
 		public function uninstall() {
 			return parent::uninstall() && $this->Installer->uninstall();

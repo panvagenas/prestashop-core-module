@@ -38,7 +38,7 @@ class Form extends \HelperFormCore
 	 *
 	 * @return $this
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function setFieldsValues(Array $fieldValues)
 	{
@@ -69,7 +69,7 @@ class Form extends \HelperFormCore
 	 * @return string
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function generateForm($fields_value = array())
 	{
@@ -106,7 +106,7 @@ class Form extends \HelperFormCore
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function setFieldsForm(Array $fieldsForm)
 	{
@@ -126,7 +126,7 @@ class Form extends \HelperFormCore
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function initialize($module, $bootstrap = true, $title = false, $showToolbar = true, $toolBarScroll = true, $toolbarBtn = array())
 	{

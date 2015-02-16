@@ -142,7 +142,7 @@ if (!class_exists('XDaRk\Module')) {
 		}
 
 		/**
-		 * @extend
+		 * @extend Always call parent construct before implementing custom logic
 		 */
 		public function __construct()
 		{
@@ -167,7 +167,7 @@ if (!class_exists('XDaRk\Module')) {
 		 * @return string
 		 *
 		 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-		 * @since ${VERSION}
+		 * @since 141110
 		 */
 		public final function getContent()
 		{
@@ -202,7 +202,7 @@ if (!class_exists('XDaRk\Module')) {
 		 * @return bool
 		 *
 		 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-		 * @since ${VERSION}
+		 * @since 141110
 		 */
 		public final function install()
 		{
@@ -215,7 +215,7 @@ if (!class_exists('XDaRk\Module')) {
 		 * @return bool
 		 *
 		 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-		 * @since ${VERSION}
+		 * @since 141110
 		 */
 		public final function uninstall()
 		{
@@ -227,7 +227,7 @@ if (!class_exists('XDaRk\Module')) {
 		 * @return \Context
 		 *
 		 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-		 * @since ${VERSION}
+		 * @since 141110
 		 */
 		public function getContext(){
 			return $this->context;

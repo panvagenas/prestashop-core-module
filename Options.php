@@ -51,7 +51,7 @@ class Options extends Core
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	protected function init()
 	{
@@ -110,7 +110,7 @@ class Options extends Core
 	 * @throws \Exception
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function getValue($optionName, $default = false)
 	{
@@ -130,7 +130,7 @@ class Options extends Core
 	 * @return bool
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function saveOptions($newOptions)
 	{
@@ -389,7 +389,7 @@ class Options extends Core
 	 * @return array
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function getOptionsArray($defaults = false)
 	{

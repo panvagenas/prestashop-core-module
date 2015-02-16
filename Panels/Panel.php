@@ -46,7 +46,7 @@ class Panel extends Core
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function addTextField($label, $name, $required = true, $hint = false, $class = '', $description = false, $prefix = false, $suffix = false, $type = 'text')
 	{
@@ -137,9 +137,9 @@ class Panel extends Core
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
-	public function addSelectField($label, $name, Array $options, $required = true, $hint = false, $class = '', $description = false, $optionId = 'id_option', $optionName = 'name', $prefix = false, $suffix = false)
+	public function addSelectField($label, $name, Array $options, $required = true, $hint = false, $class = '', $description = false, $optionId = 'value', $optionName = 'name', $prefix = false, $suffix = false)
 	{
 		$f = array(
 			'type'     => 'select',
@@ -184,11 +184,10 @@ class Panel extends Core
 	 * @param bool $prefix
 	 * @param bool $suffix
 	 *
-	 * @internal param string $optionId
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function addMultiSelectField($label, $name, Array $options, $required = false, $hint = false, $class = '', $description = false, $optionValueName = 'value', $optionName = 'name', $prefix = false, $suffix = false)
 	{
@@ -238,7 +237,7 @@ class Panel extends Core
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function addSwitchField(
 		$label,
@@ -253,7 +252,7 @@ class Panel extends Core
 		$suffix = false
 	) {
 		$f = array(
-			'type'     => 'select',
+			'type'     => 'switch',
 			'label'    => $label,
 			'name'     => $name,
 			'class'    => $class,
@@ -278,6 +277,31 @@ class Panel extends Core
 		return $this;
 	}
 
+	public function addYesNoField(
+		$label,
+		$name,
+		$required = true,
+		$hint = false,
+		$class = '',
+		$description = false,
+		$prefix = false,
+		$suffix = false
+	){
+		$yesNo = array(
+			array(
+				'id'    => $name.'_on',
+				'value' => 1,
+				'label' => $this->moduleInstance->l( 'Yes' )
+			),
+			array(
+				'id'    => $name.'_off',
+				'value' => 0,
+				'label' => $this->moduleInstance->l( 'No' )
+			)
+		);
+		return $this->addSwitchField($label, $name, $yesNo, $required, true, $hint, $class, $description, $prefix, $suffix);
+	}
+
 
 	/**
 	 * @param $field
@@ -285,7 +309,7 @@ class Panel extends Core
 	 * @return bool
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	protected function isMultiSelectField($field)
 	{
@@ -299,7 +323,7 @@ class Panel extends Core
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function addField($field)
 	{
@@ -322,7 +346,7 @@ class Panel extends Core
 	 * @return Panel
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function factory($index, $title, $image, $type = 'main', $submitTitle = 'Save', $submitClass = 'button pull-right')
 	{
@@ -373,7 +397,7 @@ class Panel extends Core
 	 *
 	 * @return array
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since ${VERSION}
+	 * @since 141110
 	 */
 	public function parseFieldsValues(Array $fieldValues)
 	{
