@@ -9,9 +9,9 @@
  * Copyright: 2014 Panagiotis Vagenas
  */
 
-namespace XDaRk\Panels;
+namespace XDaRk_v141110\Panels;
 
-use XDaRk\Core;
+use XDaRk_v141110\Core;
 
 if (!defined('_PS_VERSION_'))
 	exit;
@@ -21,7 +21,7 @@ class Panel extends Core
 {
 	protected $tab = 0;
 	protected $type = 'main';
-	protected $title = 'XDaRk Core Options Panel';
+	protected $title = 'XDaRk_v141110 Core Options Panel';
 	protected $image = false; // TODO set a default image
 	protected $input = array();
 	protected $submit = array(
@@ -46,7 +46,7 @@ class Panel extends Core
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function addTextField($label, $name, $required = true, $hint = false, $class = '', $description = false, $prefix = false, $suffix = false, $type = 'text')
 	{
@@ -137,7 +137,7 @@ class Panel extends Core
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function addSelectField($label, $name, Array $options, $required = true, $hint = false, $class = '', $description = false, $optionId = 'value', $optionName = 'name', $prefix = false, $suffix = false)
 	{
@@ -187,7 +187,7 @@ class Panel extends Core
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function addMultiSelectField($label, $name, Array $options, $required = false, $hint = false, $class = '', $description = false, $optionValueName = 'value', $optionName = 'name', $prefix = false, $suffix = false)
 	{
@@ -237,7 +237,7 @@ class Panel extends Core
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function addSwitchField(
 		$label,
@@ -309,7 +309,7 @@ class Panel extends Core
 	 * @return bool
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	protected function isMultiSelectField($field)
 	{
@@ -323,7 +323,7 @@ class Panel extends Core
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function addField($field)
 	{
@@ -346,7 +346,7 @@ class Panel extends Core
 	 * @return Panel
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function factory($index, $title, $image, $type = 'main', $submitTitle = 'Save', $submitClass = 'button pull-right')
 	{
@@ -397,7 +397,7 @@ class Panel extends Core
 	 *
 	 * @return array
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function parseFieldsValues(Array $fieldValues)
 	{

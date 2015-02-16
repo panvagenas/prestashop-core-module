@@ -5,11 +5,11 @@
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
  * Date: 13/2/2015
  * Time: 9:53 μμ
- * Since: TODO 141110
+ * Since: TODO ${VERSION}
  * Copyright: 2015 Panagiotis Vagenas
  */
 
-namespace XDaRk;
+namespace XDaRk_v141110;
 
 
 class Integer extends Core{

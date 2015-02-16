@@ -9,7 +9,7 @@
  * Copyright: 2014 Panagiotis Vagenas
  */
 
-namespace XDaRk;
+namespace XDaRk_v141110;
 
 
 if (!defined('_PS_VERSION_'))
@@ -51,7 +51,7 @@ class Options extends Core
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	protected function init()
 	{
@@ -110,7 +110,7 @@ class Options extends Core
 	 * @throws \Exception
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function getValue($optionName, $default = false)
 	{
@@ -130,7 +130,7 @@ class Options extends Core
 	 * @return bool
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function saveOptions($newOptions)
 	{
@@ -389,7 +389,7 @@ class Options extends Core
 	 * @return array
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function getOptionsArray($defaults = false)
 	{

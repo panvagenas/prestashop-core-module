@@ -18,9 +18,9 @@
  * Copyright: 2014 Panagiotis Vagenas
  */
 
-namespace XDaRk;
+namespace XDaRk_v141110;
 
-use XDaRk\Panels\Panel;
+use XDaRk_v141110\Panels\Panel;
 
 if (!defined('_PS_VERSION_'))
 	exit;
@@ -38,7 +38,7 @@ class Form extends \HelperFormCore
 	 *
 	 * @return $this
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function setFieldsValues(Array $fieldValues)
 	{
@@ -69,7 +69,7 @@ class Form extends \HelperFormCore
 	 * @return string
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function generateForm($fields_value = array())
 	{
@@ -106,7 +106,7 @@ class Form extends \HelperFormCore
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function setFieldsForm(Array $fieldsForm)
 	{
@@ -126,7 +126,7 @@ class Form extends \HelperFormCore
 	 * @return $this
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since 141110
+	 * @since ${VERSION}
 	 */
 	public function initialize($module, $bootstrap = true, $title = false, $showToolbar = true, $toolBarScroll = true, $toolbarBtn = array())
 	{
