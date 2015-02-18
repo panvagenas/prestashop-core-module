@@ -220,7 +220,7 @@ class Vars extends Core{
 	 * Get request's query vars as an assoc array
 	 * @return array
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function getQueryVars(){
 		return $this->Vars->parse_raw_query($this->Vars->_SERVER('QUERY_STRING'));
