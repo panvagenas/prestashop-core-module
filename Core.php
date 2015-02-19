@@ -11,16 +11,17 @@
 
 namespace XDaRk_v150216;
 
-if (!defined('_PS_VERSION_'))
+if ( ! defined( '_PS_VERSION_' ) ) {
 	exit;
+}
 
-if(!class_exists('XDaRk_v150216\Core')) {
-	require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'Stub.php';
-	require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'Module.php';
-	require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'CarrierModule.php';
-	require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PaymentModule.php';
-	require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'AutoLoader.php';
-	require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'Constants.php';
+if ( ! class_exists( 'XDaRk_v150216\Core' ) ) {
+	require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'Stub.php';
+	require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'Module.php';
+	require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'CarrierModule.php';
+	require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'PaymentModule.php';
+	require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'AutoLoader.php';
+	require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'Constants.php';
 
 	/**
 	 * Class Core
@@ -43,7 +44,7 @@ if(!class_exists('XDaRk_v150216\Core')) {
 	 * @property \XDaRk_v150216\Url             Url
 	 * @property \XDaRk_v150216\Integer         Integer
 	 */
-	class Core implements Constants{
+	class Core implements Constants {
 		public static $singletonClasses = array();
 
 		public static $classes = array();
@@ -95,7 +96,9 @@ if(!class_exists('XDaRk_v150216\Core')) {
 
 		public function __call( $name, $args ) {
 			if ( method_exists( $this, $name ) ) {
-				return $this->{$name}( $args );
+				return call_user_func_array( array( $this, $name ), $args );
+			} else if ( method_exists( $this->moduleInstance, $name ) ) {
+				return call_user_func_array( array( $this->moduleInstance, $name ), $args );
 			}
 
 			$nsName = ( in_array( $name, Core::$instanceClasses ) ? Core::$instanceNamespace : __NAMESPACE__ ) . '\\' . $name;
@@ -113,9 +116,8 @@ if(!class_exists('XDaRk_v150216\Core')) {
 		}
 
 
-		public static function __callStatic($name, $arguments)
-		{
-			return Stub::$name($arguments);
+		public static function __callStatic( $name, $arguments ) {
+			return Stub::$name( $arguments );
 		}
 
 		public function __isset( $name ) {
@@ -137,6 +139,8 @@ if(!class_exists('XDaRk_v150216\Core')) {
 		 *
 		 * @staticvar Singleton $instance The *Singleton* instances of this class.
 		 *
+		 * @param \Module $moduleInstance
+		 *
 		 * @return $this The *Singleton* instance.
 		 */
 		public static function getInstance( \Module &$moduleInstance ) {
@@ -155,6 +159,23 @@ if(!class_exists('XDaRk_v150216\Core')) {
 		protected function __construct( \Module &$moduleInstance ) {
 			$this->instanceNamespaceClass = get_class( $this );
 			$this->moduleInstance         = $moduleInstance;
+		}
+
+		/**
+		 * @param $string
+		 * @param bool $specific
+		 *
+		 * @return string
+		 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+		 * @since 150216
+		 */
+		public function l( $string, $specific = false ) {
+			if ( ! $specific ) {
+				$nameAr   = explode( '\\', get_class( $this ) );
+				$specific = strtolower( end( $nameAr ) );
+			}
+
+			return $this->moduleInstance->l( $string, $specific );
 		}
 
 		/**
