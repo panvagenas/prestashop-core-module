@@ -171,6 +171,7 @@ if (!class_exists('XDaRk_v150216\Module')) {
 		 */
 		public final function getContent()
 		{
+
 			$output = '';
 
 			if (\Tools::isSubmit('submit'.$this->name)) {
@@ -182,7 +183,9 @@ if (!class_exists('XDaRk_v150216\Module')) {
 				}
 			}
 
-			return $output.$this->xdGetContent();
+			$extenders = $this->xdGetContent();
+
+			return empty($extenders) ? false : $output.$extenders;
 		}
 
 		/**
