@@ -311,7 +311,7 @@ class Panel extends Core {
 	 *
 	 * @return $this
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function addHtml( $html_content, $name = '' ) {
 		$f = array(

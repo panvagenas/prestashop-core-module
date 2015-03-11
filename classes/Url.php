@@ -496,7 +496,7 @@ class Url extends Core{
 	 *
 	 * @return string
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function getBaseUrl($http = false, $withUri = true){
 		return \Tools::getHttpHost($http) . ($withUri ? __PS_BASE_URI__ : '');

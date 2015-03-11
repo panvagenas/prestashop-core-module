@@ -5,7 +5,7 @@
  * User: Panagiotis Vagenas <pan.vagenas@gmail.com>
  * Date: 11/3/2015
  * Time: 10:36 μμ
- * Since: TODO ${VERSION}
+ * Since: 150216
  * Copyright: 2015 Panagiotis Vagenas
  */
 
@@ -17,7 +17,7 @@ class EDD extends Core{
 	 * @return bool
 	 * @throws \Exception
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function isEDD() {
 		$storeUrl = $this->Options->getValue( 'edd.store_url', true );
@@ -29,7 +29,7 @@ class EDD extends Core{
 	 * @return bool
 	 * @throws \Exception
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function hasDemo() {
 		return (bool) $this->Options->getValue( 'edd.demo', true );
@@ -38,7 +38,7 @@ class EDD extends Core{
 	/**
 	 * @return bool
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function isDemoActive() {
 		return $this->getDemoEndTime() >= time();
@@ -48,7 +48,7 @@ class EDD extends Core{
 	 * @return int
 	 * @throws \Exception
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function getDemoEndTime() {
 		$duration   = (int) $this->Options->getValue( 'edd.demo_duration', true );
@@ -60,7 +60,7 @@ class EDD extends Core{
 	/**
 	 * @return bool
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function isDemoOver() {
 		return ! $this->isDemoActive();
@@ -71,7 +71,7 @@ class EDD extends Core{
 	 *
 	 * @throws \Exception
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function startDemo( $startTime = null ) {
 		if ( ! $this->hasDemo() ) {
@@ -88,7 +88,7 @@ class EDD extends Core{
 
 	/**
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function endDemo() {
 		$this->Options->saveOptions( array( 'edd.demo_start' => 0 ) );
@@ -97,7 +97,7 @@ class EDD extends Core{
 	 * @return mixed
 	 * @throws \Exception
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function getLicense() {
 		return $this->Options->getValue( 'edd_license' );
@@ -109,7 +109,7 @@ class EDD extends Core{
 	 * @return bool|mixed
 	 * @throws \Exception
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function getLicenseStatus( $overrideIfInDemo = true ) {
 		if ( $overrideIfInDemo && $this->hasDemo() && $this->isDemoActive() ) {
@@ -123,7 +123,7 @@ class EDD extends Core{
 	 * @param $license
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function setLicense( $license ) {
 		$this->Options->saveOptions( array( 'edd_license' => $license ) );
@@ -132,7 +132,7 @@ class EDD extends Core{
 	 * @param $status
 	 *
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function setLicenseStatus( $status ) {
 		$status = (bool) $status ? 1 : 0;
@@ -142,7 +142,7 @@ class EDD extends Core{
 	/**
 	 * @return int
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function chkLicense(  ) {
 		$license_data = $this->APIRequest();
@@ -164,7 +164,7 @@ class EDD extends Core{
 	 * @return bool|mixed
 	 * @throws Exception
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function activateLicense( $license ) {
 		$this->check_arg_types( 'string', func_get_args() );
@@ -215,7 +215,7 @@ class EDD extends Core{
 	 *
 	 * @return bool|mixed
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function deactivateLicense( $license ) {
 		$license_data = $this->APIRequest( 'deactivate_license', $license );
@@ -243,7 +243,7 @@ class EDD extends Core{
 	 *
 	 * @return mixed
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
-	 * @since TODO ${VERSION}
+	 * @since 150216
 	 */
 	public function APIRequest($action = 'check_license', $license = ''){
 		$stream_context = @stream_context_create(
