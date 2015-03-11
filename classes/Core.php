@@ -43,6 +43,7 @@ if ( ! class_exists( 'XDaRk_v150216\Core' ) ) {
 	 * @property \XDaRk_v150216\Vars            Vars
 	 * @property \XDaRk_v150216\Url             Url
 	 * @property \XDaRk_v150216\Integer         Integer
+	 * @property \XDaRk_v150216\EDD             EDD
 	 */
 	class Core implements Constants {
 		public static $singletonClasses = array();
@@ -60,6 +61,9 @@ if ( ! class_exists( 'XDaRk_v150216\Core' ) ) {
 		public static $__REGEX_MATCH_PHP_FILES = '/^.+\.php$/i';
 		public static $__REGEX_HOOK_FUNCTION = '/^(hook)+.+$/';
 
+		/**
+		 * @var Module
+		 */
 		public $moduleInstance;
 		public $instanceNamespaceClass;
 

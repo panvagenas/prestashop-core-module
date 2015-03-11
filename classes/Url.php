@@ -489,4 +489,16 @@ class Url extends Core{
 
 		return NULL; // Default return value.
 	}
+
+	/**
+	 * @param bool $http
+	 * @param bool $withUri
+	 *
+	 * @return string
+	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+	 * @since TODO ${VERSION}
+	 */
+	public function getBaseUrl($http = false, $withUri = true){
+		return \Tools::getHttpHost($http) . ($withUri ? __PS_BASE_URI__ : '');
+	}
 }
