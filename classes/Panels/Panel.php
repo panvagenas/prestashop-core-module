@@ -91,33 +91,33 @@ class Panel extends Core {
 		return $this;
 	}
 
-	public function addPasswordField( $label, $name, $class = '', $required = true, $hint = false, $description = false, $prefix = false, $suffix = false ) {
-		return $this->addTextField( $label, $name, $required, $hint, $class, $description, $prefix, $suffix, 'password' );
+	public function addPasswordField( $label, $name, $class = '', $required = true, $hint = false, $description = false, $prefix = false, $suffix = false, $col = 6 ) {
+		return $this->addTextField( $label, $name, $required, $hint, $class, $description, $prefix, $suffix, $col, 'password' );
 	}
 
-	public function addFileField( $label, $name, $class = '', $required = true, $hint = false, $description = false, $prefix = false, $suffix = false ) {
+	public function addFileField( $label, $name, $class = '', $required = true, $hint = false, $description = false, $prefix = false, $suffix = false, $col = 6 ) {
 		// TODO File options, check parent
-		return $this->addTextField( $label, $name, $required, $hint, $class, $description, $prefix, $suffix, 'datetime' );
+		return $this->addTextField( $label, $name, $required, $hint, $class, $description, $prefix, $suffix, $col, 'datetime' );
 	}
 
-	public function addDateField( $label, $name, $class = '', $required = true, $hint = false, $description = false, $prefix = false, $suffix = false ) {
+	public function addDateField( $label, $name, $class = '', $required = true, $hint = false, $description = false, $prefix = false, $suffix = false, $col = 6 ) {
 		$class .= ' datepicker';
 
-		return $this->addTextField( $label, $name, $required, $hint, $class, $description, $prefix, $suffix, 'date' );
+		return $this->addTextField( $label, $name, $required, $hint, $class, $description, $prefix, $suffix, $col, 'date' );
 	}
 
-	public function addDateTimeField( $label, $name, $class = '', $required = true, $hint = false, $description = false, $prefix = false, $suffix = false ) {
+	public function addDateTimeField( $label, $name, $class = '', $required = true, $hint = false, $description = false, $prefix = false, $suffix = false, $col = 6 ) {
 		$class .= ' datepicker';
 
-		return $this->addTextField( $label, $name, $required, $hint, $class, $description, $prefix, $suffix, 'datetime' );
+		return $this->addTextField( $label, $name, $required, $hint, $class, $description, $prefix, $suffix, $col, 'datetime' );
 	}
 
-	public function addTextAreaField( $label, $name, $class = '', $required = true, $hint = false, $description = false, $prefix = false, $suffix = false ) {
-		return $this->addTextField( $label, $name, $required, $hint, $class, $description, $prefix, $suffix, 'textarea' );
+	public function addTextAreaField( $label, $name, $class = '', $required = true, $hint = false, $description = false, $prefix = false, $suffix = false, $col = 6 ) {
+		return $this->addTextField( $label, $name, $required, $hint, $class, $description, $prefix, $suffix, $col, 'textarea' );
 	}
 
-	public function addColorField( $label, $name, $class = '', $required = true, $hint = false, $description = false, $prefix = false, $suffix = false ) {
-		return $this->addTextField( $label, $name, $required, $hint, $class, $description, $prefix, $suffix, 'color' );
+	public function addColorField( $label, $name, $class = '', $required = true, $hint = false, $description = false, $prefix = false, $suffix = false, $col = 6 ) {
+		return $this->addTextField( $label, $name, $required, $hint, $class, $description, $prefix, $suffix, $col, 'color' );
 	}
 
 	/**
@@ -389,7 +389,7 @@ class Panel extends Core {
 	}
 
 	/**
-	 * TODO Implement this
+	 *
 	 * @return array
 	 * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
 	 * @since 141110

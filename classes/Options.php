@@ -69,7 +69,7 @@ class Options extends Core {
 	protected $stored = array();
 
 	/**
-	 *
+	 * @param \Module $module
 	 */
 	public function __construct( $module ) {
 		parent::__construct( $module );
